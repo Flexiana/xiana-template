@@ -13,7 +13,7 @@
 (duct/load-hierarchy)
 
 (defn read-config []
-  (duct/read-config (io/resource "todoapp/config.edn")))
+  (duct/read-config (io/resource "{{sanitized-name}}/config.edn")))
 
 (defn test
   ([]

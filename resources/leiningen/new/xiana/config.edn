@@ -1,11 +1,11 @@
 {:duct.profile/base
-                      {:duct.core/project-ns todoapp
+                      {:duct.core/project-ns {{sanitized-name}}
 
                        :duct.server.http/jetty
-                                             {:handler #ig/ref :todoapp.handler/ring
+                                             {:handler #ig/ref :{{sanitized-name}}.handler/ring
                                               :port    #duct/env ["PORT" Int :or 3000]}
 
-                       :todoapp.handler/ring
+                       :{{sanitized-name}}.handler/ring
                                              {:db
                                                            #ig/ref :duct.database/sql
                                               :ring-config {

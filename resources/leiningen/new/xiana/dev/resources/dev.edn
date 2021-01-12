@@ -2,9 +2,9 @@
  {:connection-uri "jdbc:sqlite:db/dev.sqlite"}
 
  :duct.migrator/ragtime
- {:migrations [#ig/ref :todoapp.migration/create-tasks]}
+ {:migrations [#ig/ref :{{sanitized-name}}.migration/create-tasks]}
 
- [:duct.migrator.ragtime/sql :todoapp.migration/create-tasks]
+ [:duct.migrator.ragtime/sql :{{sanitized-name}}.migration/create-tasks]
  {:up   ["CREATE TABLE tasks (id INTEGER PRIMARY KEY, \"first-name\" TEXT, \"last-name\" TEXT, age INTEGER, \"created-at\" TEXT DEFAULT CURRENT_TIMESTAMP);",
          "INSERT INTO tasks(id, \"first-name\", \"last-name\", age) VALUES
          (1, 'Lars', 'Larssen', 10),
