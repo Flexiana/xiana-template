@@ -1,0 +1,36 @@
+{:duct.profile/base
+                      {:duct.core/project-ns todoapp
+
+                       :duct.server.http/jetty
+                                             {:handler #ig/ref :todoapp.handler/ring
+                                              :port    #duct/env ["PORT" Int :or 3000]}
+
+                       :todoapp.handler/ring
+                                             {:db
+                                                           #ig/ref :duct.database/sql
+                                              :ring-config {
+                                                            :defaults {:params    {:urlencoded true
+                                                                                   :multipart  true
+                                                                                   :nested     true
+                                                                                   :keywordize true}
+                                                                       :cookies   true
+                                                                       :session   {:flash true
+                                                                                   :cookie-attrs
+                                                                                          {:http-only true, :same-site :strict}}
+                                                                       :security  {:anti-forgery         true
+                                                                                   :xss-protection
+                                                                                                         {:enable? true, :mode :block}
+                                                                                   :frame-options        :sameorigin
+                                                                                   :content-type-options :nosniff}
+                                                                       :static    {:resources "public"}
+                                                                       :responses {:not-modified-responses true
+                                                                                   :absolute-redirects     true
+                                                                                   :content-types          true}}}}}
+
+ :duct.profile/dev    #duct/include "dev"
+ :duct.profile/local  #duct/include "local"
+ :duct.profile/test   #duct/include "test"
+ :duct.profile/prod   {}
+
+ :duct.module/logging {}
+ :duct.module/sql     {}}
