@@ -16,6 +16,6 @@
           (map (partial corpus/compose-route db) controllers)))
 
 (defmethod ig/init-key ::ring
-  [_ {:keys [ring-conf db]}]
-  (corpus/ring-handler ring-conf
-                       (corpus/router (make-routes db) ring-conf hiccup/wrap-render)))
+  [_ {:keys [ring-config db]}]
+  (corpus/ring-handler ring-config
+                       (corpus/router (make-routes db) ring-config hiccup/wrap-render)))
