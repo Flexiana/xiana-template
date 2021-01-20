@@ -1,2 +1,0 @@
-;; Local REPL configuration
-
