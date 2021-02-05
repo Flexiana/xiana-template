@@ -14,8 +14,9 @@
     (main/info "Generating fresh 'lein new' xiana project.")
     (->files data
              ["src/backend/app/controllers/index.clj" (render "src/backend/app/controllers/index.clj" data)]
-             ["src/backend/app/controllers/status.clj" (render "src/backend/app/controllers/status.clj" data)]
+             ["src/backend/app/controllers/re_frame.clj" (render "src/backend/app/controllers/re_frame.clj" data)]
              ["src/backend/components/components.clj" (render "src/backend/components/components.clj" data)]
+             ["src/backend/components/router.clj" (render "src/backend/components/router.clj" data)]
              ["src/backend/components/app.clj" (render "src/backend/components/app.clj" data)]
              ["src/backend/components/web_server.clj" (render "src/backend/components/web_server.clj" data)]
              ["src/frontend/deps.cljs" (render "src/frontend/deps.cljs" data)]
