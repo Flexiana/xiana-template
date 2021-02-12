@@ -12,7 +12,7 @@
                       [lein-shell "0.5.0"]
                       [migratus-lein "0.7.3"]]
             :main ^:skip-aot components
-            :uberjar-name "frames.jar"
+            :uberjar-name {{sanitized-name}} ".jar"
             :source-paths ["src/backend/app" "src/backend/components" "src/frontend"]
             :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
             :profiles {:dev   {:resource-paths ["config/dev"]
