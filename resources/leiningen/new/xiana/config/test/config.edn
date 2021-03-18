@@ -1,3 +1,10 @@
+{:framework.db.storage/postgresql {:port     5433
+                                   :dbname   "{{name-to-path}}"
+                                   :host     "localhost"
+                                   :dbtype   "postgresql"
+                                   :user     "postgres"
+                                   :password "postgres"}}
+
 {:framework.app/ring              {:defaults {:params    {:urlencoded true
                                                           :multipart  true
                                                           :nested     true
@@ -14,5 +21,7 @@
                                               :static    {:resources "public"}
                                               :responses {:not-modified-responses true
                                                           :absolute-redirects     true
-                                                          :content-types          true}}}
- }
+                                                          :content-types          true}}}}
+
+:framework.app/web-server         {:port  3000
+                                   :join? false}

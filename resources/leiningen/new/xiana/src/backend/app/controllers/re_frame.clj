@@ -1,12 +1,12 @@
 (ns controllers.re-frame
   (:require [xiana.core :as xiana]
-            [ring.util.response :as response]))
+            [ring.util.response :as ring]))
 
-(defn index
+(defn handle-index
   [state]
   (xiana/ok
     (assoc state
       :response
       (-> "index.html"
-          (response/resource-response {:root "public"})
-          (response/header "Content-Type" "text/html; charset=utf-8")))))
+          (ring/resource-response {:root "public"})
+          (ring/header "Content-Type" "text/html; charset=utf-8")))))
