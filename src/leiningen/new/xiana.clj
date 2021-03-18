@@ -12,25 +12,35 @@
               :sanitized-name (sanitize-ns name)
               :name-to-path   (name-to-path name)}]
     (main/info "Generating fresh 'lein new' xiana project.")
-    (->files data
-             ["src/backend/app/controllers/index.clj" (render "src/backend/app/controllers/index.clj" data)]
-             ["src/backend/app/controllers/re_frame.clj" (render "src/backend/app/controllers/re_frame.clj" data)]
-             ["src/backend/components/components.clj" (render "src/backend/components/components.clj" data)]
-             ["src/backend/components/router.clj" (render "src/backend/components/router.clj" data)]
-             ["src/backend/components/app.clj" (render "src/backend/components/app.clj" data)]
-             ["src/backend/components/web_server.clj" (render "src/backend/components/web_server.clj" data)]
-             ["src/frontend/deps.cljs" (render "src/frontend/deps.cljs" data)]
-             ["src/frontend/{{sanitized-name}}/config.cljs" (render "src/frontend/app_name/config.cljs" data)]
-             ["src/frontend/{{sanitized-name}}/core.cljs" (render "src/frontend/app_name/core.cljs" data)]
-             ["src/frontend/{{sanitized-name}}/db.cljs" (render "src/frontend/app_name/db.cljs" data)]
-             ["src/frontend/{{sanitized-name}}/events.cljs" (render "src/frontend/app_name/events.cljs" data)]
-             ["src/frontend/{{sanitized-name}}/subs.cljs" (render "src/frontend/app_name/subs.cljs" data)]
-             ["src/frontend/{{sanitized-name}}/views.cljs" (render "src/frontend/app_name/views.cljs" data)]
-             ["resources/public/index.html" (render "resources/public/index.html" data)]
-             ["config/dev/config.edn" (render "config/dev/config.edn" data)]
-             ["config/test/config.edn" (render "config/test/config.edn" data)]
-             ["test/status_test.clj" (render "test/status_test.clj" data)]
-             ["project.clj" (render "project.clj" data)]
-             ["README.md" (render "README.md" data)]
-             [".gitignore" (render "gitignore" data)]
-             [".hgignore" (render "hgignore" data)])))
+    (apply ->files data (->> ["Docker/db.Dockerfile"
+                              "Docker/init.sql"
+                              "src/backend/app/controllers/index.clj"
+                              "src/backend/app/controllers/re_frame.clj"
+                              "src/backend/app/controller_behaviors/.gitkeep"
+                              "src/backend/app/db_migrations/.gitkeep"
+                              "src/backend/app/interceptors/.gitkeep"
+                              "src/backend/app/models/.gitkeep"
+                              "src/backend/app/views/layouts/.gitkeep"
+                              "src/backend/app/interceptors.clj"
+                              "src/frontend/deps.cljs"
+                              "src/shared/config.clj"
+                              "src/shared/schema.clj"
+                              "resources/public/index.html"
+                              "config/dev/config.edn"
+                              "config/test/config.edn"
+                              "project.clj"
+                              "docker-compose.yml"
+                              "postgres-start.sh"
+                              "README.md"]
+                             (map (fn [path] [path (render path data)]))
+                             (concat
+                               [["src/backend/{{name-to-path}}.clj" (render "src/backend/app_name.clj" data)]
+                                ["src/frontend/{{name-to-path}}/config.cljs" (render "src/frontend/app_name/config.cljs" data)]
+                                ["src/frontend/{{name-to-path}}/core.cljs" (render "src/frontend/app_name/core.cljs" data)]
+                                ["src/frontend/{{name-to-path}}/db.cljs" (render "src/frontend/app_name/db.cljs" data)]
+                                ["src/frontend/{{name-to-path}}/events.cljs" (render "src/frontend/app_name/events.cljs" data)]
+                                ["src/frontend/{{name-to-path}}/subs.cljs" (render "src/frontend/app_name/subs.cljs" data)]
+                                ["src/frontend/{{name-to-path}}/views.cljs" (render "src/frontend/app_name/views.cljs" data)]
+                                ["test/{{name-to-path}}_test.clj" (render "test/app_name_test.clj" data)]
+                                [".gitignore" (render "gitignore" data)]
+                                [".hgignore" (render "hgignore" data)]])))))

@@ -4,8 +4,7 @@
    [re-frame.core :as re-frame]
    [{{sanitized-name}}.events :as events]
    [{{sanitized-name}}.views :as views]
-   [{{sanitized-name}}.config :as config]
-   ))
+   [{{sanitized-name}}.config :as config]))
 
 
 (defn dev-setup []

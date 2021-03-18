@@ -4,7 +4,11 @@ A Leiningen template for FIXME.
 
 ## Usage
 
-FIXME
+`lein new xiana DEFPROJECT-NAME --to-dir ../CUSTOM-DIR`
+
+Example:
+
+`lein new xiana xi-example --to-dir ../lein-xiana-example`
 
 ## License
 
