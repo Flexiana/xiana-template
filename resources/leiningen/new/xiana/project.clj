@@ -4,11 +4,13 @@
             :dependencies [[org.clojure/clojure "1.10.1"]
                            [com.flexiana/framework "0.1.4"]
                            [thheller/shadow-cljs "2.11.7"]
+                           [migratus "1.3.3"]
                            [clj-http "3.12.0"]
                            [reagent "0.10.0"]
                            [re-frame "1.1.2"]]
             :plugins [[lein-shadow "0.3.1"]
-                      [lein-shell "0.5.0"]]
+                      [lein-shell "0.5.0"]
+                      [migratus-lein "0.7.3"]]
             :main ^:skip-aot {{name}}
             :uberjar-name "{{name}}.jar"
             :source-paths ["src/backend" "src/backend/app" "src/frontend" "src/shared"]
