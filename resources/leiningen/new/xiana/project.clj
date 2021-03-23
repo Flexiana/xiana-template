@@ -7,7 +7,8 @@
                            [migratus "1.3.3"]
                            [clj-http "3.12.0"]
                            [reagent "0.10.0"]
-                           [re-frame "1.1.2"]]
+                           [re-frame "1.1.2"]
+                           [com.opentable.components/otj-pg-embedded "0.7.1"]]
             :plugins [[lein-shadow "0.3.1"]
                       [migratus-lein "0.7.3"]]
             :main ^:skip-aot {{name}}
