@@ -1,7 +1,9 @@
 (ns {{sanitized-name}}-fixture
   (:require
     [migratus.core :as migratus]
-    [next.jdbc :as jdbc])
+    [next.jdbc :as jdbc]
+    [framework.config.core :as config]
+    [com.stuartsierra.component :as component])
   (:import
     (com.opentable.db.postgres.embedded
       EmbeddedPostgres)))
