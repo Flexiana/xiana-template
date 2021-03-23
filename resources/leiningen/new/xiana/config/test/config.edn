@@ -5,6 +5,11 @@
                                    :user     "postgres"
                                    :password "postgres"}}
 
+:framework.db.storage/migration  {:store                :database
+                                  :migration-dir        "resources/migrations"
+                                  :init-in-transaction? false
+                                  :migration-table-name "migrations"}
+
 {:framework.app/ring              {:defaults {:params    {:urlencoded true
                                                           :multipart  true
                                                           :nested     true

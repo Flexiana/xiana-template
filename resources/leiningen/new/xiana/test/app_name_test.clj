@@ -4,20 +4,11 @@
     [clojure.test :refer [deftest is use-fixtures]]
     [com.stuartsierra.component :as component]
     [{{sanitized-name}}]
+    [{{sanitized-name}}-fixture :refer [std-system-fixture]]
     [framework.config.core :as config]))
 
-(defn std-system-fixture
-  [f]
-  (let [config (config/edn)
-        system (-> config
-                   {{sanitized-name}}/system
-                   component/start)]
-    (try
-      (f)
-      (finally
-        (component/stop system)))))
 
-(use-fixtures :each std-system-fixture)
+(use-fixtures :once std-system-fixture)
 
 (deftest index-test
   (is (= {:body   "Index page"
