@@ -2,10 +2,8 @@
   (:require
     [clj-http.client :as http]
     [clojure.test :refer [deftest is use-fixtures]]
-    [com.stuartsierra.component :as component]
     [{{sanitized-name}}]
-    [{{sanitized-name}}-fixture :refer [std-system-fixture]]
-    [framework.config.core :as config]))
+    [{{sanitized-name}}-fixture :refer [std-system-fixture]]))
 
 
 (use-fixtures :once std-system-fixture)
