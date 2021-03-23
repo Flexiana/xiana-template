@@ -9,7 +9,6 @@
                            [reagent "0.10.0"]
                            [re-frame "1.1.2"]]
             :plugins [[lein-shadow "0.3.1"]
-                      [lein-shell "0.5.0"]
                       [migratus-lein "0.7.3"]]
             :main ^:skip-aot {{name}}
             :uberjar-name "{{name}}.jar"
