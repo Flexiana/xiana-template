@@ -18,6 +18,7 @@
                       :framework.db.storage/postgresql
                       (assoc
                         :port pg-port
+                        :embedded pg
                         :subname (str "//localhost:" pg-port "/{{sanitized-name}}")))]
     (jdbc/execute! (dissoc db-config :dbname) [init-sql])
     (assoc config :framework.db.storage/postgresql db-config)))
@@ -40,5 +41,6 @@
     (try
       (f)
       (finally
+        (.close (get-in system [:db :config :embedded]))
         (component/stop system)))))
 
