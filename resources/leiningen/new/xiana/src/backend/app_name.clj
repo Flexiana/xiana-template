@@ -20,19 +20,22 @@
   [config]
   (let [pg-cfg (:framework.db.storage/postgresql config)
         app-cfg (:framework.app/ring config)
+        acl-cfg (select-keys config [:acl/permissions :acl/roles])
         web-server-cfg (:framework.app/web-server config)]
     (->
       (component/system-map
         :config config
         :db (db.storage/postgresql pg-cfg)
         :router (xiana.router/make-router routes)
+        :acl-cfg acl-cfg
         :app (xiana.app/make-app app-cfg
+                                 acl-cfg
                                  []
                                  [interceptors/sample-{{sanitized-name}}-controller-interceptor])
         :web-server (xiana.web-server/make-web-server web-server-cfg))
       (component/system-using
         {:router     [:db]
-         :app        [:router :db]
+         :app        [:router :db :acl-cfg]
          :web-server [:app]}))))
 
 (defn -main
