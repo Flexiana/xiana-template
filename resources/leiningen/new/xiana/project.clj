@@ -3,11 +3,11 @@
             :min-lein-version "2.0.0"
             :dependencies [[org.clojure/clojure "1.10.1"]
                            [com.flexiana/framework "0.1.4"]
-                           [thheller/shadow-cljs "2.11.7"]
+                           [thheller/shadow-cljs "2.11.26"]
                            [clj-http "3.12.0"]
                            [reagent "0.10.0"]
                            [re-frame "1.1.2"]]
-            :plugins [[lein-shadow "0.3.1"]
+            :plugins [[migratus-lein "0.7.3"]
                       [lein-shell "0.5.0"]]
             :main ^:skip-aot {{name}}
             :uberjar-name "{{name}}.jar"
@@ -18,32 +18,21 @@
                        :local {:resource-paths ["config/local"]}
                        :prod  {:resource-paths ["config/prod"]}
                        :test  {:resource-paths ["config/test"]
-                               :dependencies   [[kerodon "0.9.1"]]}}
-            :shadow-cljs {:nrepl {:port 8777}
-
-                          :builds {:app {:target :browser
-                                         :output-dir "resources/public/js/compiled"
-                                         :asset-path "/js/compiled"
-                                         :modules {:app {:init-fn {{sanitized-name}}.core/init
-                                                         :preloads [devtools.preload]}}}}}
-
-                                         ;:devtools {:http-root "resources/public"
-                                         ;           :http-port 8280
-                                         ;           :http-handler {{name}}.handler/dev-handler
-                                         ;           }
-
-
-            :aliases {"ci"    ["do" "clean," "cloverage," "lint," "uberjar"]
-                      "kondo" ["run" "-m" "clj-kondo.main" "--lint" "src" "test"]
-                      "lint"  ["do" "kondo," "eastwood," "kibit"]
-                      "watch"        ["with-profile" "dev" "do"
-                                      ["shadow" "watch" "app" "browser-test" "karma-test"]]
-                      "release"      ["with-profile" "prod" "do"
-                                      ["shadow" "release" "app"]]}
-            :migratus {:store         :database
-                       :migration-dir "migrations"
-                       :db            {:classname   "com.mysql.jdbc.Driver"
-                                       :subprotocol "postgres"
-                                       :subname     "//localhost/controllers"
-                                       :user        "postgres"
-                                       :password    "postgres"}})
+                               :dependencies   [{{#nubank?}}[nubank/workspaces "1.0.16"]{{/nubank?}}
+                                                 [binaryage/devtools "1.0.2"]
+                                                 [nubank/matcher-combinators "3.1.4"]
+                                                 [kerodon "0.9.1"]]}}
+    :aliases {"ci"         ["do" "clean," "cloverage," "lint," "uberjar"]
+            "kondo"      ["run" "-m" "clj-kondo.main" "--lint" "src" "test"]
+            "repl"       ["with-profile" "+test" "run" "-m" "shadow.cljs.devtools.cli" "server"]
+            "workspaces" ["with-profile" "+test" "run" "-m" "shadow.cljs.devtools.cli" "watch" "workspaces"]
+            "app"        ["with-profile" "+test" "run" "-m" "shadow.cljs.devtools.cli" "watch" "app"]
+            "lint"       ["do" "kondo," "eastwood," "kibit"]
+            "release"    ["with-profile" "prod" "run" "-m" "shadow.cljs.devtools.cli" "release" "app"]}
+  :migratus {:store         :database
+             :migration-dir "migrations"
+             :db            {:classname   "com.mysql.jdbc.Driver"
+                             :subprotocol "postgres"
+                             :subname     "//localhost:5433/frankie"
+                             :user        "postgres"
+                             :password    "postgres"}})
