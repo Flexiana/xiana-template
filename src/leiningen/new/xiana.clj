@@ -42,5 +42,6 @@
                                 ["src/frontend/{{name-to-path}}/subs.cljs" (render "src/frontend/app_name/subs.cljs" data)]
                                 ["src/frontend/{{name-to-path}}/views.cljs" (render "src/frontend/app_name/views.cljs" data)]
                                 ["test/{{name-to-path}}_test.clj" (render "test/app_name_test.clj" data)]
+                                ["test/{{name-to-path}}_fixture.clj" (render "test/app_name_fixture.clj" data)]
                                 [".gitignore" (render "gitignore" data)]
                                 [".hgignore" (render "hgignore" data)]])))))
