@@ -1,11 +1,12 @@
 {
-  "scripts": {
-    "repl": "shadow-cljs node-repl",
-    "test": "shadow-cljs compile test",
-    "build": "shadow-cljs release app",
-    "serve": "shadow-cljs watch app",
-    "prebuild": "rm ./resources/public/main.css ; postcss ./src/frontend/base.css -o ./resources/public/main.css --env production",
-    "preserve": "rm ./rsources/public/main.css ; postcss ./src/frontend/base.css -o ./resources/public/main.css"
+    "scripts": {
+      "repl": "shadow-cljs node-repl",
+      "clean": "rm -rf node_modules/ && rm -rf package-lock.json && rm -rf .shadow-cljs/ && rm -rf resources/public/js && rm -rf .lsp/",
+      "tests": "shadow-cljs compile ci && npx karma start --single-run",
+      "build": "shadow-cljs release app",
+      "serve": "shadow-cljs watch app",
+      "prebuild": "rm ./resources/public/main.css ; postcss ./src/frontend/base.css -o ./resources/public/main.css --env production",
+      "preserve": "rm ./rsources/public/main.css ; postcss ./src/frontend/base.css -o ./resources/public/main.css"
   },
   "dependencies": {
     "highlight.js": "9.18.5",
@@ -24,6 +25,9 @@
     "postcss-discard-comments": "^4.0.2",
     "shadow-cljs": "^2.11.26",
     "source-map-support": "^0.4.18",
-    "tailwindcss": "^2.0.3"
+    "tailwindcss": "^2.0.3",
+    "@sinonjs/fake-timers": "^7.0.2",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^13.0.15"
   }
 }

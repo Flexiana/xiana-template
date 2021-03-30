@@ -1,15 +1,17 @@
 {:lein   true
  :nrepl  {:port 8777}
- :builds {:app        {:target     :browser
-                       :build-hooks [(hooks/purge-css)
-                                     (hooks/npm-init)]
-                       :output-dir "resources/public/js/app"
-                       :asset-path "/js/app"
-                       :modules    {:main {:init-fn {{sanitized-name}}.core/init
-                                           :preloads [devtools.preload]}}}
-          {{#nubank?}}:workspaces {:target     :browser
-                       :output-dir "resources/public/js/workspaces"
-                       :asset-path "/js/workspaces"
-                       :modules    {:main {:entries  [{{sanitized-name}}.workspaces]
-                                           :preloads [devtools.preload]}}}{{/nubank?}}
-          }}
+ :builds {:app
+          {:target      :browser
+           :build-hooks [(hooks/purge-css)
+                         (hooks/npm-init)]
+           :output-dir  "resources/public/js/app"
+           :asset-path  "/js/app"
+           :modules     {:main {:init-fn  {{sanitized-name}} .core/init
+                                :preloads [devtools.preload]}}}
+          {{#workspaces?}}
+          :workspaces
+          {:target     :browser
+           :output-dir "resources/public/js/workspaces"
+           :asset-path "/js/workspaces"
+           :modules    {:main {:entries  [{{sanitized-name}}.workspaces]
+                               :preloads [devtools.preload]}}} {{/workspaces?}}}}

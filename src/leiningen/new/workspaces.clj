@@ -1,9 +1,9 @@
-(ns leiningen.new.nubank
+(ns leiningen.new.workspaces
   (:require
     [leiningen.new.helpers :as helpers]))
 
 
-(def option "+nubank")
+(def option "+workspaces")
 
 
 (defn files

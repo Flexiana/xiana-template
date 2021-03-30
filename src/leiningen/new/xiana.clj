@@ -6,15 +6,15 @@
     [leiningen.core.main :as main]
     [leiningen.new.base :as base]
     [leiningen.new.helpers :as helpers]
-    [leiningen.new.nubank :as nubank]
-    [leiningen.new.templates :refer [multi-segment sanitize-ns name-to-path ->files]]))
+    [leiningen.new.templates :refer [multi-segment sanitize-ns name-to-path ->files]]
+    [leiningen.new.workspaces :as workspaces]))
 
 
 (declare template-data check-options app-files)
 
 
 (def available-options
-  #{nubank/option})
+  #{workspaces/option})
 
 
 (defn xiana
@@ -43,15 +43,15 @@
 
 (defn template-data
   [name options]
-  {:name name
-   :namespace (multi-segment (sanitize-ns name))
+  {:name           name
+   :namespace      (multi-segment (sanitize-ns name))
    :sanitized-name (sanitize-ns name)
-   :name-to-path (name-to-path name)
-   :nubank? (helpers/options? "+nubank" options)})
+   :name-to-path   (name-to-path name)
+   :workspaces?    (helpers/options? "+workspaces" options)})
 
 
 (defn app-files
   [data options]
   (concat
-    (when (helpers/options? nubank/option options) (nubank/files data))
+    (when (helpers/options? workspaces/option options) (workspaces/files data))
     (base/files data options)))

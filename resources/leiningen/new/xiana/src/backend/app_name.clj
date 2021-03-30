@@ -14,7 +14,7 @@
 (def routes
   [["/" {:controller index/handle-index}]
    ["/re-frame" {:controller re-frame/handle-index}]
-   {{#nubank?}}["/workspaces" {:controller re-frame/handle-workspaces}]{{/nubank?}}
+   {{#workspaces?}}["/workspaces" {:controller re-frame/handle-workspaces}]{{/workspaces?}}
    ["/assets/*" (ring/create-resource-handler)]])
 
 (defn system
