@@ -4,6 +4,7 @@
     [clojure.java.shell :refer [sh]]
     [clojure.string :as s]))
 
+
 (defn exec
   [& cmd]
   (let [cmd (s/split (s/join " " (flatten cmd)) #"\s+")
@@ -20,11 +21,12 @@
   [build-state]
   (if-not (and (.isDirectory (io/file "node_modules"))
                (not (= 0 (count (.list (io/file "node_modules"))))))
-     (do (println ";;=>> 'Installing node_modules...")
-         (exec "npm install")
-         build-state)
-     (do (println ";;=>> 'npm is already initialized in the current project'")
-         build-state)))
+    (do (println ";;=>> 'Installing node_modules...")
+        (exec "npm install")
+        build-state)
+    (do (println ";;=>> 'npm is already initialized in the current project'")
+        build-state)))
+
 
 (defn purge-css
   {:shadow.build/stage :flush}

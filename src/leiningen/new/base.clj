@@ -1,5 +1,7 @@
 (ns leiningen.new.base
-  (:require [leiningen.new.helpers :as helpers]))
+  (:require
+    [leiningen.new.helpers :as helpers]))
+
 
 (def file-paths
   ["Docker/db.Dockerfile"
@@ -28,19 +30,20 @@
    "postgres-start.sh"
    "README.md"])
 
+
 (defn files
   [data options]
   (->> file-paths
        (map (fn [path] [path (helpers/render path data)]))
        (concat
-        [["src/backend/{{name-to-path}}.clj" (helpers/render "src/backend/app_name.clj" data)]
-         ["src/frontend/{{name-to-path}}/config.cljs" (helpers/render "src/frontend/app_name/config.cljs" data)]
-         ["src/frontend/{{name-to-path}}/core.cljs" (helpers/render "src/frontend/app_name/core.cljs" data)]
-         ["src/frontend/{{name-to-path}}/db.cljs" (helpers/render "src/frontend/app_name/db.cljs" data)]
-         ["src/frontend/{{name-to-path}}/events.cljs" (helpers/render "src/frontend/app_name/events.cljs" data)]
-         ["src/frontend/{{name-to-path}}/subs.cljs" (helpers/render "src/frontend/app_name/subs.cljs" data)]
-         ["src/frontend/{{name-to-path}}/views.cljs" (helpers/render "src/frontend/app_name/views.cljs" data)]
-         ["test/{{name-to-path}}_test.clj" (helpers/render "test/app_name_test.clj" data)]
-         [".gitignore" (helpers/render "gitignore" data)]
-         ["shadow-cljs.edn" (helpers/render "shadow-cljs.edn" data)]
-         [".hgignore" (helpers/render "hgignore" data)]])))
+         [["src/backend/{{name-to-path}}.clj" (helpers/render "src/backend/app_name.clj" data)]
+          ["src/frontend/{{name-to-path}}/config.cljs" (helpers/render "src/frontend/app_name/config.cljs" data)]
+          ["src/frontend/{{name-to-path}}/core.cljs" (helpers/render "src/frontend/app_name/core.cljs" data)]
+          ["src/frontend/{{name-to-path}}/db.cljs" (helpers/render "src/frontend/app_name/db.cljs" data)]
+          ["src/frontend/{{name-to-path}}/events.cljs" (helpers/render "src/frontend/app_name/events.cljs" data)]
+          ["src/frontend/{{name-to-path}}/subs.cljs" (helpers/render "src/frontend/app_name/subs.cljs" data)]
+          ["src/frontend/{{name-to-path}}/views.cljs" (helpers/render "src/frontend/app_name/views.cljs" data)]
+          ["test/{{name-to-path}}_test.clj" (helpers/render "test/app_name_test.clj" data)]
+          [".gitignore" (helpers/render "gitignore" data)]
+          ["shadow-cljs.edn" (helpers/render "shadow-cljs.edn" data)]
+          [".hgignore" (helpers/render "hgignore" data)]])))
