@@ -3,10 +3,13 @@
 A Leiningen template for FIXME.
 
 ## Usage
-
+### Base only
 `lein new xiana DEFPROJECT-NAME --to-dir ../CUSTOM-DIR`
 
+### With [nubank/workspaces](https://github.com/nubank/workspaces) :
+`+nubank`
 Example:
+`lein new xiana xi-example +nubank`
 
 `lein new xiana xi-example --to-dir ../lein-xiana-example`
 
