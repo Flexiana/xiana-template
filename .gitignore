@@ -11,3 +11,6 @@ pom.xml.asc
 .hgignore
 .hg/
 /.idea
+.lsp/
+.clj-kondo/.cache
+.clj-kondo/cache
