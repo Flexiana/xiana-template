@@ -41,7 +41,7 @@
   (let [config (config/edn)]
     (component/start (system config))))
 
-(def st
+(defonce st
   (-> (config/edn)
       system
       atom))

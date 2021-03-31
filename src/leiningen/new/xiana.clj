@@ -1,8 +1,7 @@
 (ns leiningen.new.xiana
   (:require
-    [clojure.set :as set]
-    [clojure.string :as st]
-    [clojure.string :as str]
+    [clojure.set :as clset]
+    [clojure.string :as clstring]
     [leiningen.core.main :as main]
     [leiningen.new.base :as base]
     [leiningen.new.helpers :as helpers]
@@ -29,10 +28,10 @@
 (defn check-available
   [options]
   (let [options-set (into #{} options)
-        abort? (not (set/superset? available-options options-set))]
+        abort? (not (clset/superset? available-options options-set))]
     (when abort?
       (main/abort "\nError: invalid option(s)\nAvailable: "
-                  (st/join " " (sort available-options)) "\n"))))
+                  (clstring/join " " (sort available-options)) "\n"))))
 
 
 (defn check-options
