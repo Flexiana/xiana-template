@@ -4,7 +4,6 @@
     [clojure.java.shell :refer [sh]]
     [clojure.string :as s]))
 
-
 (defn exec
   [& cmd]
   (let [cmd (s/split (s/join " " (flatten cmd)) #"\s+")
@@ -15,8 +14,7 @@
         (println out))
       (println err))))
 
-
-(defn npm-init
+(defn npm-init!
   {:shadow.build/stage :configure}
   [build-state]
   (if-not (and (.isDirectory (io/file "node_modules"))
@@ -27,8 +25,7 @@
     (do (println ";;=>> 'npm is already initialized in the current project'")
         build-state)))
 
-
-(defn purge-css
+(defn purge-css!
   {:shadow.build/stage :flush}
   [build-state]
   (case (:shadow.build/mode build-state)
@@ -38,9 +35,7 @@
       (exec "npm run-script prebuild")
       build-state)
     :dev
-    (if (not (.exists (io/file "resources/public/main.css")))
-      (do
-        (println ";;=> 'Runnnig preserve script'")
-        (exec "npm run-script preserve")
-        build-state)
+    (do
+      (println ";;=> 'Runnnig preserve script'")
+      (exec "npm run-script preserve")
       build-state)))

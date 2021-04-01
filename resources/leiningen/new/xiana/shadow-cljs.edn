@@ -2,8 +2,8 @@
  :nrepl  {:port 8777}
  :builds {:app
           {:target      :browser
-           :build-hooks [(hooks/purge-css)
-                         (hooks/npm-init)]
+           :build-hooks [(hooks/purge-css!)
+                         (hooks/npm-init!)]
            :output-dir  "resources/public/js/app"
            :asset-path  "/js/app"
            :modules     {:main {:init-fn  {{sanitized-name}} .core/init
