@@ -4,6 +4,7 @@
     [clojure.java.shell :refer [sh]]
     [clojure.string :as s]))
 
+
 (defn exec
   [& cmd]
   (let [cmd (s/split (s/join " " (flatten cmd)) #"\s+")
@@ -13,6 +14,7 @@
       (when-not (s/blank? out)
         (println out))
       (println err))))
+
 
 (defn npm-init!
   {:shadow.build/stage :configure}
@@ -24,6 +26,7 @@
         build-state)
     (do (println ";;=>> 'npm is already initialized in the current project'")
         build-state)))
+
 
 (defn purge-css!
   {:shadow.build/stage :flush}

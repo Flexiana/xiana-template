@@ -6,7 +6,8 @@
                  [thheller/shadow-cljs "2.11.26"]
                  [clj-http "3.12.0"]
                  [reagent "0.10.0"]
-                 [re-frame "1.1.2"]]
+                 [re-frame "1.1.2"]
+                 [com.opentable.components/otj-pg-embedded "0.7.1"]]
   :plugins [[migratus-lein "0.7.3"]
             [lein-shell "0.5.0"]]
   :main ^:skip-aot {{name}}
