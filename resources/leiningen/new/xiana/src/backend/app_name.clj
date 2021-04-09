@@ -14,6 +14,7 @@
 (def routes
   [["/" {:controller index/handle-index}]
    ["/re-frame" {:controller re-frame/handle-index}]
+   {{#workspaces?}}["/workspaces" {:controller re-frame/handle-workspaces}]{{/workspaces?}}
    ["/assets/*" (ring/create-resource-handler)]])
 
 (defn system
@@ -39,3 +40,16 @@
   [& _args]
   (let [config (config/edn)]
     (component/start (system config))))
+
+(defonce st
+  (-> (config/edn)
+      system
+      atom))
+
+(defn- start-dev-system
+  []
+  (swap! st component/start))
+
+(defn- stop-dev-system
+  []
+  (swap! st component/stop))
