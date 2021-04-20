@@ -29,5 +29,23 @@
                                                           :content-types          true}}}
 
  :framework.app/web-server        {:port  3000
-                                   :join? false}}
+                                   :join? false}
 
+ :acl/permissions                 {
+                                   ;"posts"    [:read :create :update :delete]
+                                   ;"users"    [:read :create :update :delete]
+                                   }
+
+ :acl/roles                       {
+                                   ;:user        [{:resource "posts"
+                                   ;               :actions  [:read]
+                                   ;               :over     :all}
+                                   ;              {:resource "posts"
+                                   ;               :actions  [:create :update :delete]
+                                   ;               :over     :own}]
+                                   ;:admin       [{:resource :all
+                                   ;               :actions  [:all]
+                                   ;               :over     :all}]
+                                   }
+
+ }
