@@ -1,15 +1,17 @@
 (ns {{sanitized-name}}
   (:require
-   [com.stuartsierra.component :as component]
-   [controllers.index :as index]
-   [controllers.re-frame :as re-frame]
-   [framework.components.app.core :as xiana.app]
-   [framework.components.router.core :as xiana.router]
-   [framework.components.web-server.core :as xiana.web-server]
-   [framework.config.core :as config]
-   [framework.db.storage :as db.storage]
-   [interceptors]
-   [reitit.ring :as ring]))
+    [com.stuartsierra.component :as component]
+    [controllers.index :as index]
+    [controllers.re-frame :as re-frame]
+    [framework.components.app.core :as xiana.app]
+    [framework.components.interceptors :as interceptors]
+    [framework.components.router.core :as xiana.router]
+    [framework.components.session.backend :as session-backend]
+    [framework.components.web-server.core :as xiana.web-server]
+    [framework.config.core :as config]
+    [framework.db.storage :as db.storage]
+    [nrepl.server :refer [start-server stop-server]]
+    [reitit.ring :as ring]))
 
 (def routes
   [["/" {:controller index/handle-index}]
@@ -18,24 +20,35 @@
 
 (defn system
   [config]
-  (let [pg-cfg (:framework.db.storage/postgresql config)
-        app-cfg (:framework.app/ring config)
-        web-server-cfg (:framework.app/web-server config)]
-    (->
-      (component/system-map
-        :config config
-        :db (db.storage/postgresql pg-cfg)
-        :router (xiana.router/make-router routes)
-        :app (xiana.app/make-app app-cfg
-                                 []
-                                 [interceptors/sample-{{sanitized-name}}-controller-interceptor])
-        :web-server (xiana.web-server/make-web-server web-server-cfg))
-      (component/system-using
-        {:router     [:db]
-         :app        [:router :db]
-         :web-server [:app]}))))
+  (let [acl-cfg (select-keys config [:acl/permissions :acl/roles])
+        session-bcknd (session-backend/init-in-memory-session)]
+    {:db         (db.storage/->postgresql config)
+     :router     (xiana.router/->router config routes)
+     :app        (xiana.app/->app {:acl-cfg                 acl-cfg
+                                   :session-backend         session-bcknd
+                                   :router-interceptors     []
+                                   :controller-interceptors [(interceptors/muuntaja)
+                                                             interceptors/params
+                                                             (interceptors/require-logged-in)
+                                                             interceptors/session-interceptor
+                                                             interceptors/view
+                                                             interceptors/side-effect
+                                                             (interceptors/db-access)
+                                                             ;(interceptors/acl-restrict {:prefix "/api"})
+                                                             ]})
+
+     :web-server (xiana.web-server/->web-server config)}))
+
+(def sys-deps
+  {:router     [:db]
+   :app        [:router :db]
+   :web-server [:app]})
+
+(defonce st (atom {}))
 
 (defn -main
   [& _args]
-  (let [config (config/edn)]
-    (component/start (system config))))
+  (reset! st (component/start (-> (config/edn)
+                                  system
+                                  component/map->SystemMap
+                                  (component/system-using sys-deps)))))
