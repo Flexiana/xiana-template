@@ -16,7 +16,7 @@
 (def routes
   [["/" {:action index/handle-index}]
    ["/re-frame" {:action re-frame/handle-index}]
-   ["/assets/*" (ring/create-resource-handler {:path "/"})]])
+   ["/assets/*" (ring/create-resource-handler)]])
 
 (defn system
   [config]
