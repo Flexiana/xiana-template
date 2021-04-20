@@ -26,7 +26,7 @@
                           :builds {:app {:target     :browser
                                          :output-dir "resources/public/js/compiled"
                                          :asset-path "/js/compiled"
-                                         :modules    {:app {:init-fn {{sanitized-name}} .core/init
+                                         :modules    {:app {:init-fn {{sanitized-name}}.core/init
                                                                      :preloads [devtools.preload]}}}}}
             :aliases {"ci"      ["do" "clean," "cloverage," "lint," "uberjar"]
                       "kondo"   ["run" "-m" "clj-kondo.main" "--lint" "src" "test"]
