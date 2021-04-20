@@ -14,9 +14,9 @@
     [reitit.ring :as ring]))
 
 (def routes
-  [["/" {:controller index/handle-index}]
-   ["/re-frame" {:controller re-frame/handle-index}]
-   ["/assets/*" (ring/create-resource-handler)]])
+  [["/" {:action index/handle-index}]
+   ["/re-frame" {:action re-frame/handle-index}]
+   ["/assets/*" (ring/create-resource-handler {:path "/"})]])
 
 (defn system
   [config]
