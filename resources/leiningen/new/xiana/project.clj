@@ -1,11 +1,11 @@
 (defproject {{sanitized-name}} "0.1.0-SNAPSHOT"
             :description "FIXME: write description"
             :min-lein-version "2.0.0"
-            :dependencies [[org.clojure/clojure "1.10.1"]
-                           [com.flexiana/framework "0.2.0"]
+            :dependencies [[org.clojure/clojure "1.10.3"]
+                           [com.flexiana/framework "0.2.1"]
                            [thheller/shadow-cljs "2.11.26"]
-                           [migratus "1.3.3"]
-                           [clj-http "3.12.0"]
+                           [migratus "1.3.5"]
+                           [clj-http "3.12.1"]
                            [reagent "0.10.0"]
                            [re-frame "1.1.2"]
                            [com.fzakaria/slf4j-timbre "0.3.21"]
@@ -17,7 +17,7 @@
             :source-paths ["src/backend" "src/backend/app" "src/frontend" "src/shared"]
             :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
             :profiles {:dev   {:resource-paths ["config/dev"]
-                               :dependencies   [[binaryage/devtools "1.0.2"]]}
+                               :dependencies   [[binaryage/devtools "1.0.3"]]}
                        :local {:resource-paths ["config/local"]}
                        :prod  {:resource-paths ["config/prod"]}
                        :test  {:resource-paths ["config/test"]
