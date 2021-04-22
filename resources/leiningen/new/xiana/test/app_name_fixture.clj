@@ -35,6 +35,4 @@
     (try
       (f)
       (finally
-        (.close (get-in system [:db :config :embedded]))
         (component/stop system)))))
-
