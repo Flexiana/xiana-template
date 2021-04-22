@@ -8,7 +8,6 @@
     [framework.components.web-server.core :as xiana.web-server]
     [framework.config.core :as config]
     [framework.db.storage :as db.storage]
-    [nrepl.server :refer [start-server stop-server]]
     [reitit.ring :as ring]))
 
 (def routes
