@@ -31,6 +31,15 @@
  :framework.app/web-server        {:port  3000
                                    :join? false}
 
+ :framework.app/auth              {:hash-algorithm  :bcrypt ;; Available values: :bcrypt, :scrypt, and :pbkdf2
+                                   :bcrypt-settings {:work-factor 11}
+                                   :scrypt-settings {:cpu-cost        32768 ;; Must be a power of 2
+                                                     :memory-cost     8
+                                                     :parallelization 1}
+                                   :pbkdf2-settings {:type       :sha1 ;; Available values: :sha1 and :sha256
+                                                     :iterations 100000}}
+
+
  :acl/permissions                 {
                                    ;"posts"    [:read :create :update :delete]
                                    ;"users"    [:read :create :update :delete]
