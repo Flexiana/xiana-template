@@ -36,6 +36,7 @@
   (let [system (-> (config/edn)
                    (assoc-in [:framework.app/web-server :port] 3333)
                    embedded-postgres!
+                   migrate!
                    (system app-config routes)
                    component/map->SystemMap
                    (component/system-using sys-deps)
