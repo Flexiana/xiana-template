@@ -3,14 +3,14 @@
                                    :host     "localhost"
                                    :dbtype   "postgresql"
                                    :user     "postgres"
-                                   :password "postgres"}}
+                                   :password "postgres"}
 
-:framework.db.storage/migration  {:store                :database
-                                  :migration-dir        "resources/migrations"
-                                  :init-in-transaction? false
-                                  :migration-table-name "migrations"}
+ :framework.db.storage/migration  {:store                :database
+                                   :migration-dir        "resources/migrations"
+                                   :init-in-transaction? false
+                                   :migration-table-name "migrations"}
 
-{:framework.app/ring              {:defaults {:params    {:urlencoded true
+ :framework.app/ring              {:defaults {:params    {:urlencoded true
                                                           :multipart  true
                                                           :nested     true
                                                           :keywordize true}
@@ -26,7 +26,35 @@
                                               :static    {:resources "public"}
                                               :responses {:not-modified-responses true
                                                           :absolute-redirects     true
-                                                          :content-types          true}}}}
+                                                          :content-types          true}}}
 
-:framework.app/web-server         {:port  3000
+ :framework.app/web-server        {:port  3000
                                    :join? false}
+
+ :framework.app/auth              {:hash-algorithm  :bcrypt ;; Available values: :bcrypt, :scrypt, and :pbkdf2
+                                   :bcrypt-settings {:work-factor 11}
+                                   :scrypt-settings {:cpu-cost        32768 ;; Must be a power of 2
+                                                     :memory-cost     8
+                                                     :parallelization 1}
+                                   :pbkdf2-settings {:type       :sha1 ;; Available values: :sha1 and :sha256
+                                                     :iterations 100000}}
+
+
+ :acl/permissions                 {
+                                   ;"posts"    [:read :create :update :delete]
+                                   ;"users"    [:read :create :update :delete]
+                                   }
+
+ :acl/roles                       {
+                                   ;:user        [{:resource "posts"
+                                   ;               :actions  [:read]
+                                   ;               :over     :all}
+                                   ;              {:resource "posts"
+                                   ;               :actions  [:create :update :delete]
+                                   ;               :over     :own}]
+                                   ;:admin       [{:resource :all
+                                   ;               :actions  [:all]
+                                   ;               :over     :all}]
+                                   }
+
+ }

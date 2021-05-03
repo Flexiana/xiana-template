@@ -11,7 +11,7 @@
 (deftest index-test
   (is (= {:body   "Index page"
           :status 200}
-         (-> {:url                  "http://localhost:3000/"
+         (-> {:url                  "http://localhost:3333/"
               :unexceptional-status (constantly true)
               :method               :get}
              http/request

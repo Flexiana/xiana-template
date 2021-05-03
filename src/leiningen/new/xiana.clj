@@ -22,6 +22,7 @@
                               "src/backend/app/models/.gitkeep"
                               "src/backend/app/views/layouts/.gitkeep"
                               "src/backend/app/interceptors.clj"
+                              "src/backend/app/views/common.clj"
                               "src/frontend/deps.cljs"
                               "src/shared/config.clj"
                               "src/shared/schema.clj"

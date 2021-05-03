@@ -14,3 +14,4 @@ pom.xml.asc
 .lsp/
 .clj-kondo/.cache
 .clj-kondo/cache
+/lein-template.iml
