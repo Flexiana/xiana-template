@@ -1,50 +1,35 @@
 (ns {{sanitized-name}}
   (:require
-    [com.stuartsierra.component :as component]
     [controllers.index :as index]
     [controllers.re-frame :as re-frame]
-    [framework.components.interceptors :as interceptors]
-    [framework.components.session.backend :as session-backend]
-    [framework.components.web-server.core :as xiana.web-server]
+    [framework.interceptor.core :as xiana-interceptors]
+;    [framework.session.backend :as session-backend]
+    [framework.webserver.core :as ws]
     [framework.config.core :as config]
-    [framework.db.storage :as db.storage]
-    [reitit.ring :as ring]))
+    [framework.coercion.core :as coercion]
+;    [framework.db.storage :as db.storage]
+    [framework.route.core :as routes]))
 
 (def routes
-  [["/" {:action index/handle-index}]
-   ["/re-frame" {:action re-frame/handle-index}]
-   ["/assets/*" (ring/create-resource-handler {:path "/"})]])
-
-(def app-config
-  (let [config (config/edn)]
-    {:acl-cfg                 (select-keys config [:acl/permissions :acl/roles])
-     :auth                    (:framework.app/auth config)
-     :session-backend         (session-backend/init-in-memory-session)
-     :router-interceptors     []
-     :controller-interceptors [ ;interceptors/log
-                               (interceptors/muuntaja)
-                               interceptors/params
-                               ;(interceptors/require-logged-in)
-                               interceptors/session-interceptor
-                               ;interceptors/view
-                               interceptors/side-effect
-                               (interceptors/db-access)
-                               ;(interceptors/acl-restrict {:prefix "/api"})
-                               ]}))
+  [["/" {:action index/index}]
+   ["/re-frame" {:action re-frame/index}]
+   ;; ["/assets/*" (ring/create-resource-handler {:path "/"})]
+   ])
 
 (defn system
-  [config app-config routes]
-  {:db         (db.storage/->postgresql config)
-   :web-server (xiana.web-server/->web-server config app-config routes)})
-
-(def sys-deps
-  {:web-server [:db]})
-
-(defonce st (atom {}))
+  [config]
+  (let [deps
+        {
+         ;; :db         (db.storage/->postgresql config)
+         :routes (routes/reset routes)
+         :webserver (:framework.app/web-server config)
+         :router-interceptors     []
+         :controller-interceptors [(xiana-interceptors/muuntaja)
+                                   xiana-interceptors/params
+                                   coercion/interceptor]}]
+    (assoc deps :web-server (ws/start deps))))
 
 (defn -main
   [& _args]
-  (reset! st (component/start (-> (config/edn)
-                                  (system app-config routes)
-                                  component/map->SystemMap
-                                  (component/system-using sys-deps)))))
+  (let [config (config/env)]
+    (system config)))

@@ -1,10 +1,18 @@
 (ns controllers.index
-  (:require [xiana.core :as xiana]
-            [ring.util.response :as ring]))
+  (:require
+   [xiana.core :as xiana]))
 
-(defn handle-index
+(defn index-view
   [state]
   (xiana/ok
     (assoc state
-      :response
-      (ring/response "Index page"))))
+           :response
+           {:status  200
+            :headers {"Content-Type" "text/plain"}
+            :body    "Index page"})))
+
+(defn index
+  [state]
+  (xiana/flow->
+    state
+    index-view))
