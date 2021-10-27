@@ -14,15 +14,6 @@
     (main/info "Generating fresh 'lein new' xiana project.")
     (apply ->files data (->> ["Docker/db.Dockerfile"
                               "Docker/init.sql"
-                              "src/backend/app/controllers/index.clj"
-                              "src/backend/app/controllers/re_frame.clj"
-                              "src/backend/app/controller_behaviors/.gitkeep"
-                              "src/backend/app/db_migrations/.gitkeep"
-                              "src/backend/app/interceptors/.gitkeep"
-                              "src/backend/app/models/.gitkeep"
-                              "src/backend/app/views/layouts/.gitkeep"
-                              "src/backend/app/interceptors.clj"
-                              "src/backend/app/views/common.clj"
                               "src/frontend/deps.cljs"
                               "src/shared/config.clj"
                               "src/shared/schema.clj"
@@ -35,7 +26,16 @@
                               "README.md"]
                              (map (fn [path] [path (render path data)]))
                              (concat
-                               [["src/backend/{{name-to-path}}.clj" (render "src/backend/app_name.clj" data)]
+                               [["src/backend/{{name-to-path}}/core.clj" (render "src/backend/app_name/core.clj" data)]
+                                ["src/backend/{{name-to-path}}/controllers/index.clj" (render "src/backend/app_name/controllers/index.clj" data)]
+                                ["src/backend/{{name-to-path}}/controllers/re_frame.clj" (render "src/backend/app_name/controllers/re_frame.clj" data)]
+                                ["src/backend/{{name-to-path}}/controller_behaviors/.gitkeep" (render "src/backend/app_name/controller_behaviors/.gitkeep" data)]
+                                ["src/backend/{{name-to-path}}/db_migrations/.gitkeep" (render "src/backend/app_name/db_migrations/.gitkeep" data)]
+                                ["src/backend/{{name-to-path}}/interceptors/.gitkeep" (render "src/backend/app_name/interceptors/.gitkeep" data)]
+                                ["src/backend/{{name-to-path}}/models/.gitkeep" (render "src/backend/app_name/models/.gitkeep" data)]
+                                ["src/backend/{{name-to-path}}/views/layouts/.gitkeep" (render "src/backend/app_name/views/layouts/.gitkeep" data)]
+                                ["src/backend/{{name-to-path}}/interceptors.clj" (render "src/backend/app_name/interceptors.clj" data)]
+                                ["src/backend/{{name-to-path}}/views/common.clj" (render "src/backend/app_name/views/common.clj" data)]
                                 ["src/frontend/{{name-to-path}}/config.cljs" (render "src/frontend/app_name/config.cljs" data)]
                                 ["src/frontend/{{name-to-path}}/core.cljs" (render "src/frontend/app_name/core.cljs" data)]
                                 ["src/frontend/{{name-to-path}}/db.cljs" (render "src/frontend/app_name/db.cljs" data)]

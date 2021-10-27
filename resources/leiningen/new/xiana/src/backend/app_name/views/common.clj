@@ -1,4 +1,4 @@
-(ns views.common
+(ns {{sanitized-name}}.views.common
   (:require
     [xiana.core :as xiana]))
 

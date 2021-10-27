@@ -1,4 +1,4 @@
-(ns interceptors
+(ns {{sanitized-name}}.interceptors
   (:require
     [xiana.core :as xiana]))
 

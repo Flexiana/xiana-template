@@ -1,4 +1,4 @@
-(ns controllers.re-frame
+(ns {{sanitized-name}}.controllers.re-frame
   (:require [xiana.core :as xiana]
             [ring.util.response :as ring]))
 
