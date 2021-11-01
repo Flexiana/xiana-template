@@ -1,10 +1,10 @@
 (ns {{sanitized-name}}-fixture
   (:require
-    [migratus.core :as migratus]
-    [next.jdbc :as jdbc]
+    [{{sanitized-name}}.core :refer [system]]
     [framework.config.core :as config]
-    [com.stuartsierra.component :as component]
-    [{{sanitized-name}} :refer [system sys-deps app-config routes]])
+    [framework.webserver.core :as ws]
+    [migratus.core :as migratus]
+    [next.jdbc :as jdbc])
   (:import
     (com.opentable.db.postgres.embedded
       EmbeddedPostgres)))
@@ -32,16 +32,13 @@
   config)
 
 (defn std-system-fixture
-  [f]
-  (let [system (-> (config/edn)
-                   (assoc-in [:framework.app/web-server :port] 3333)
-                   embedded-postgres!
-                   migrate!
-                   (system app-config routes)
-                   component/map->SystemMap
-                   (component/system-using sys-deps)
-                   component/start)]
-    (try
-      (f)
-      (finally
-        (component/stop system)))))
+  [config f]
+  (try
+    (-> (config/env)
+        (merge config)
+        embedded-postgres!
+        migrate!
+        system)
+    (f)
+    (finally
+      (ws/stop))))

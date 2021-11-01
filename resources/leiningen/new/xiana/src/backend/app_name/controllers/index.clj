@@ -1,4 +1,4 @@
-(ns controllers.index
+(ns {{sanitized-name}}.controllers.index
   (:require [xiana.core :as xiana]
             [ring.util.response :as ring]))
 

@@ -2,7 +2,7 @@
             :description "FIXME: write description"
             :min-lein-version "2.0.0"
             :dependencies [[org.clojure/clojure "1.10.3"]
-                           [com.flexiana/framework "0.2.1"]
+                           [com.flexiana/framework "0.3.0"]
                            [thheller/shadow-cljs "2.11.26"]
                            [migratus "1.3.5"]
                            [clj-http "3.12.1"]
@@ -12,9 +12,9 @@
                            [com.opentable.components/otj-pg-embedded "0.13.3"]]
             :plugins [[lein-shadow "0.3.1"]
                       [migratus-lein "0.7.3"]]
-            :main ^:skip-aot {{name}}
+            :main ^:skip-aot {{name}}.core
             :uberjar-name "{{name}}.jar"
-            :source-paths ["src/backend" "src/backend/app" "src/frontend" "src/shared"]
+            :source-paths ["src/backend" "src/frontend" "src/shared"]
             :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
             :profiles {:dev   {:resource-paths ["config/dev"]
                                :dependencies   [[binaryage/devtools "1.0.3"]]}
