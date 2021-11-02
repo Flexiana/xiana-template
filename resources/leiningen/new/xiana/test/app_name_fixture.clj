@@ -1,43 +1,17 @@
 (ns {{sanitized-name}}-fixture
   (:require
     [{{sanitized-name}}.core :refer [system]]
+    [framework.db.test-support :as test-support]
     [framework.config.core :as config]
-    [framework.webserver.core :as ws]
-    [migratus.core :as migratus]
-    [next.jdbc :as jdbc])
-  (:import
-    (com.opentable.db.postgres.embedded
-      EmbeddedPostgres)))
-
-
-(defn embedded-postgres!
-  [config]
-  (let [pg (.start (EmbeddedPostgres/builder))
-        pg-port (.getPort pg)
-        init-sql (slurp "./Docker/init.sql")
-        db-config (-> config
-                      :framework.db.storage/postgresql
-                      (assoc
-                        :port pg-port
-                        :embedded pg
-                        :subname (str "//localhost:" pg-port "/{{sanitized-name}}")))]
-    (jdbc/execute! (dissoc db-config :dbname) [init-sql])
-    (assoc config :framework.db.storage/postgresql db-config)))
-
-(defn migrate!
-  [config]
-  (let [db (:framework.db.storage/postgresql config)
-        mig-config (assoc (:framework.db.storage/migration config) :db db)]
-    (migratus/migrate mig-config))
-  config)
+    [framework.webserver.core :as ws]))
 
 (defn std-system-fixture
   [config f]
   (try
-    (-> (config/env)
-        (merge config)
-        embedded-postgres!
-        migrate!
+    (-> (merge (config/env) config)
+        ;(test-support/docker-postgres! [(slurp "Docker/init.sql")])
+        (test-support/embedded-postgres! [(slurp "Docker/init.sql")])
+        test-support/migrate!
         system)
     (f)
     (finally
