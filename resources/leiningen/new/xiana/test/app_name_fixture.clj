@@ -11,7 +11,6 @@
     (-> (merge (config/env) config)
         ;(test-support/docker-postgres! [(slurp "Docker/init.sql")])
         (test-support/embedded-postgres! [(slurp "Docker/init.sql")])
-        test-support/migrate!
         system)
     (f)
     (finally

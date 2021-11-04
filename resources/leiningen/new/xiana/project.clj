@@ -8,10 +8,8 @@
                            [clj-http "3.12.1"]
                            [reagent "0.10.0"]
                            [re-frame "1.1.2"]
-                           [com.fzakaria/slf4j-timbre "0.3.21"]
-                           [com.opentable.components/otj-pg-embedded "0.13.3"]]
-            :plugins [[lein-shadow "0.3.1"]
-                      [migratus-lein "0.7.3"]]
+                           [com.fzakaria/slf4j-timbre "0.3.21"]]
+            :plugins [[lein-shadow "0.3.1"]]
             :main ^:skip-aot {{name}}.core
             :uberjar-name "{{name}}.jar"
             :source-paths ["src/backend" "src/frontend" "src/shared"]
@@ -31,14 +29,8 @@
             :aliases {"ci"      ["do" "clean," "cloverage," "lint," "uberjar"]
                       "kondo"   ["run" "-m" "clj-kondo.main" "--lint" "src" "test"]
                       "lint"    ["do" "kondo," "eastwood," "kibit"]
+                      "migrate" ["run" "-m" "framework.db.main"]
                       "watch"   ["with-profile" "dev" "do"
                                  ["shadow" "watch" "app" "browser-test" "karma-test"]]
                       "release" ["with-profile" "prod" "do"
-                                 ["shadow" "release" "app"]]}
-            :migratus {:store         :database
-                       :migration-dir "migrations"
-                       :db            {:classname   "com.mysql.jdbc.Driver"
-                                       :subprotocol "postgres"
-                                       :subname     "//localhost:5433/{{sanitized-name}}"
-                                       :user        "postgres"
-                                       :password    "postgres"}})
+                                 ["shadow" "release" "app"]]})
