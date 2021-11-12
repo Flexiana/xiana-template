@@ -30,7 +30,6 @@
                                 ["src/backend/{{name-to-path}}/controllers/index.clj" (render "src/backend/app_name/controllers/index.clj" data)]
                                 ["src/backend/{{name-to-path}}/controllers/re_frame.clj" (render "src/backend/app_name/controllers/re_frame.clj" data)]
                                 ["src/backend/{{name-to-path}}/controller_behaviors/.gitkeep" (render "src/backend/app_name/controller_behaviors/.gitkeep" data)]
-                                ["src/backend/{{name-to-path}}/db_migrations/.gitkeep" (render "src/backend/app_name/db_migrations/.gitkeep" data)]
                                 ["src/backend/{{name-to-path}}/interceptors/.gitkeep" (render "src/backend/app_name/interceptors/.gitkeep" data)]
                                 ["src/backend/{{name-to-path}}/models/.gitkeep" (render "src/backend/app_name/models/.gitkeep" data)]
                                 ["src/backend/{{name-to-path}}/views/layouts/.gitkeep" (render "src/backend/app_name/views/layouts/.gitkeep" data)]
