@@ -1,4 +1,6 @@
-{:framework.db.storage/postgresql {:port     5433
+{:framework.db.storage/postgresql {:deployment  :embedded   ;; :embedded or :container else already deployed
+                                   :init-script "Docker/init.sql"
+                                   :port     5433
                                    :dbname   "{{name-to-path}}"
                                    :host     "localhost"
                                    :dbtype   "postgresql"

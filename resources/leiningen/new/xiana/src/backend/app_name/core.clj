@@ -9,40 +9,38 @@
     [framework.route.core :as routes]
     [framework.session.core :as session]
     [framework.webserver.core :as ws]
-    [migratus.core :as migratus]
-    [reitit.ring :as ring]))
+    [piotr-yuxuan.closeable-map :refer [closeable-map]]
+    [reitit.ring :as ring]
+    [xiana.commons :refer [rename-key]]))
 
 (def routes
   [["/" {:action index/handle-index}]
    ["/re-frame" {:action re-frame/handle-index}]
    ["/assets/*" (ring/create-resource-handler {:path "/"})]])
 
-(defn system
-  [config]
-  (let [db-cfg (:framework.db.storage/postgresql config)
-        migration-cfg (assoc (:framework.db.storage/migration config) :db db-cfg)
-        deps {:routes                  (routes/reset routes)
-              :db                      (db/start db-cfg)
-              :webserver               (:framework.app/web-server config)
-              :role-set                (rbac/init (:framework.app/role-set config))
-              :auth                    (:framework.app/auth config)
-              :session-backend         (session/init-in-memory)
-              :router-interceptors     []
-              :controller-interceptors [(interceptors/muuntaja)
-                                        interceptors/params
-                                        session/guest-session-interceptor
-                                        interceptors/view
-                                        interceptors/side-effect
-                                        db/db-access
-                                        rbac/interceptor]}]
-    (migratus/migrate migration-cfg)
-    (assoc deps :webserver (ws/start deps))))
+(defn ->system
+  [app-cfg]
+  (-> (config/config app-cfg)
+      (rename-key :framework.app/auth :auth)
+      routes/reset
+      rbac/init
+      session/init-in-memory
+      db/start
+      db/migrate!
+      ws/start
+      closeable-map))
 
-(defonce system-map (atom {}))
+(def app-cfg
+  {:routes routes
+   :router-interceptors     []
+   :controller-interceptors [(interceptors/muuntaja)
+                             interceptors/params
+                             session/guest-session-interceptor
+                             interceptors/view
+                             interceptors/side-effect
+                             db/db-access
+                             rbac/interceptor]})
 
 (defn -main
   [& _args]
-  {:pre (even? (count _args))}
-  (reset! system-map (-> (config/env)
-                         (merge _args)
-                         system)))
+  (->system app-cfg))
