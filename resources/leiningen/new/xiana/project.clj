@@ -13,7 +13,7 @@
             :main ^:skip-aot {{name}}.core
             :uberjar-name "{{name}}.jar"
             :source-paths ["src/backend" "src/frontend" "src/shared"]
-            :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
+            :clean-targets ^{:protect false} ["resources/public/assets/js/compiled" "target"]
             :profiles {:dev   {:resource-paths ["config/dev"]
                                :dependencies   [[binaryage/devtools "1.0.3"]]}
                        :local {:resource-paths ["config/local"]}
@@ -22,7 +22,7 @@
                                :dependencies   [[kerodon "0.9.1"]]}}
             :shadow-cljs {:nrepl  {:port 8777}
                           :builds {:app {:target     :browser
-                                         :output-dir "resources/public/js/compiled"
+                                         :output-dir "resources/public/assets/js/compiled"
                                          :asset-path "/js/compiled"
                                          :modules    {:app {:init-fn {{sanitized-name}}.core/init
                                                                      :preloads [devtools.preload]}}}}}
