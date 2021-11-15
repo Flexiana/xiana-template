@@ -23,7 +23,7 @@
             :shadow-cljs {:nrepl  {:port 8777}
                           :builds {:app {:target     :browser
                                          :output-dir "resources/public/assets/js/compiled"
-                                         :asset-path "/js/compiled"
+                                         :asset-path "assets/js/compiled"
                                          :modules    {:app {:init-fn {{sanitized-name}}.core/init
                                                                      :preloads [devtools.preload]}}}}}
             :aliases {"ci"      ["do" "clean," "cloverage," "lint," "uberjar"]
