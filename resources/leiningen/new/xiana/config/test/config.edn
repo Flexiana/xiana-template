@@ -1,5 +1,5 @@
 {:framework.db.storage/postgresql {:deployment  :embedded   ;; :embedded or :container else already deployed
-                                   :init-script "Docker/init.sql"
+                                   :init-script "Docker/init.sql" ;; only for :embedded or :container
                                    :port     5433
                                    :dbname   "{{name-to-path}}"
                                    :host     "localhost"
@@ -8,7 +8,7 @@
                                    :password "postgres"}
 
  :framework.db.storage/migration  {:store                :database
-                                   :migration-dir        "test_migrations"
+                                   :migration-dir        "migrations"
                                    :init-in-transaction? false
                                    :migration-table-name "migrations"}
 
