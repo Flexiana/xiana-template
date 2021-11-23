@@ -12,8 +12,7 @@
               :sanitized-name (sanitize-ns name)
               :name-to-path   (name-to-path name)}]
     (main/info "Generating fresh 'lein new' xiana project.")
-    (apply ->files data (->> ["Docker/db.Dockerfile"
-                              "Docker/init.sql"
+    (apply ->files data (->> ["dev/user.clj"
                               "src/frontend/deps.cljs"
                               "src/shared/config.clj"
                               "src/shared/schema.clj"
@@ -22,7 +21,6 @@
                               "config/test/config.edn"
                               "project.clj"
                               "docker-compose.yml"
-                              "postgres-start.sh"
                               "README.md"]
                              (map (fn [path] [path (render path data)]))
                              (concat

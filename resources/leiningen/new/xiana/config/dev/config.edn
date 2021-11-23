@@ -4,12 +4,10 @@
                                    :dbtype   "postgresql"
                                    :user     "postgres"
                                    :password "postgres"}
-
  :framework.db.storage/migration  {:store                :database
                                    :migration-dir        "migrations"
                                    :init-in-transaction? false
                                    :migration-table-name "migrations"}
-
  :framework.app/ring              {:defaults {:params    {:urlencoded true
                                                           :multipart  true
                                                           :nested     true
@@ -27,10 +25,8 @@
                                               :responses {:not-modified-responses true
                                                           :absolute-redirects     true
                                                           :content-types          true}}}
-
  :framework.app/web-server        {:port  3000
                                    :join? false}
-
  :framework.app/auth              {:hash-algorithm  :bcrypt ;; Available values: :bcrypt, :scrypt, and :pbkdf2
                                    :bcrypt-settings {:work-factor 11}
                                    :scrypt-settings {:cpu-cost        32768 ;; Must be a power of 2

@@ -1,6 +1,6 @@
 # xiana
 
-A Leiningen template for FIXME.
+A Leiningen template for flexiana/framework v0.3.0.
 
 ## Usage
 
