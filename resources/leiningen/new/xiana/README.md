@@ -6,7 +6,7 @@ FIXME: description
 
 ### Start dockerized PostgreSQL
 
-    ./postgres-start.sh
+    docker-compose up -d
     
 ### Log into psql console
 
