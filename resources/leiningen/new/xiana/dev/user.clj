@@ -3,6 +3,7 @@
   (:require
     [{{sanitized-name}}.core :refer [->system app-cfg]]
     [clojure.tools.logging :refer [*tx-agent-levels*]]
+    [clojure.tools.namespace.repl :refer [refresh]]
     [shadow.cljs.devtools.api :as shadow.api]
     [shadow.cljs.devtools.server :as shadow.server]))
 
@@ -21,9 +22,9 @@
 (defn- start-dev-system
   []
   (stop-dev-system)
+  (refresh)
   (shadow.server/start!)
   (shadow.api/watch :app)
-  (shadow.api/watch :devcards)
   (reset! dev-sys (->system dev-app-config)))
 
 (comment

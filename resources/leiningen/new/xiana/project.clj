@@ -6,6 +6,7 @@
                            [thheller/shadow-cljs "2.11.26"]
                            [migratus "1.3.5"]
                            [clj-http "3.12.1"]
+                           [org.clojure/tools.namespace "1.1.0"]
                            [reagent "0.10.0"]
                            [re-frame "1.1.2"]
                            [com.fzakaria/slf4j-timbre "0.3.21"]]
