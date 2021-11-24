@@ -3,11 +3,13 @@
   (:require
     [{{sanitized-name}}.core :refer [->system app-cfg]]
     [clojure.tools.logging :refer [*tx-agent-levels*]]
-    [clojure.tools.namespace.repl :refer [refresh]]
+    [clojure.tools.namespace.repl :refer [refresh disable-reload!]]
     [shadow.cljs.devtools.api :as shadow.api]
     [shadow.cljs.devtools.server :as shadow.server]))
 
 (alter-var-root #'*tx-agent-levels* conj :debug :trace)
+
+(disable-reload!)
 
 (defonce dev-sys (atom {}))
 
