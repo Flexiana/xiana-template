@@ -13,7 +13,7 @@
               :name-to-path   (name-to-path name)}]
     (main/info "Generating fresh 'lein new' xiana project.")
     (apply ->files data (->> ["dev/user.clj"
-                              "src/frontend/deps.cljs"
+                              "dev/state.clj"
                               "src/shared/config.clj"
                               "src/shared/schema.clj"
                               "resources/public/index.html"

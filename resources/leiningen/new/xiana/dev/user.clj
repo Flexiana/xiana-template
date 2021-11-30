@@ -3,32 +3,28 @@
   (:require
     [{{sanitized-name}}.core :refer [->system app-cfg]]
     [clojure.tools.logging :refer [*tx-agent-levels*]]
-    [clojure.tools.namespace.repl :refer [refresh disable-reload!]]
+    [clojure.tools.namespace.repl :refer [refresh-all]]
     [shadow.cljs.devtools.api :as shadow.api]
-    [shadow.cljs.devtools.server :as shadow.server]))
+    [shadow.cljs.devtools.server :as shadow.server]
+    [state :refer [dev-sys]]))
 
 (alter-var-root #'*tx-agent-levels* conj :debug :trace)
-
-(disable-reload!)
-
-(defonce dev-sys (atom {}))
 
 (def dev-app-config
   app-cfg)
 
 (defn- stop-dev-system
   []
-  (when (:webserver @dev-sys) (.close @dev-sys))
-  (reset! dev-sys {}))
+  (when (:webserver @dev-sys) (do (.close @dev-sys)
+                                  (refresh-all)))
+  (reset! dev-sys (closeable-map {})))
 
-(defn- start-dev-system
+(defn start-dev-system
   []
   (stop-dev-system)
-  (refresh)
   (shadow.server/start!)
   (shadow.api/watch :app)
   (reset! dev-sys (->system dev-app-config)))
 
 (comment
-  (start-dev-system)
-  (stop-dev-system))
+  (start-dev-system))
