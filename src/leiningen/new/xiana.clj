@@ -1,6 +1,7 @@
 (ns leiningen.new.xiana
-  (:require [leiningen.new.templates :refer [multi-segment sanitize-ns renderer name-to-path ->files]]
-            [leiningen.core.main :as main]))
+  (:require
+    [leiningen.new.templates :refer [multi-segment sanitize-ns renderer name-to-path ->files]]
+    [leiningen.core.main :as main]))
 
 (def render (renderer "xiana"))
 
@@ -41,5 +42,6 @@
                                 ["src/frontend/{{name-to-path}}/views.cljs" (render "src/frontend/app_name/views.cljs" data)]
                                 ["test/{{name-to-path}}_test.clj" (render "test/app_name_test.clj" data)]
                                 ["test/{{name-to-path}}_fixture.clj" (render "test/app_name_fixture.clj" data)]
+                                ["shadow-cljs.edn" (render "shadow-cljs.edn" data)]
                                 [".gitignore" (render "gitignore" data)]
                                 [".hgignore" (render "hgignore" data)]])))))
