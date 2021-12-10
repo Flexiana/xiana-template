@@ -1,11 +1,11 @@
-(ns leiningen.new.xiana
+(ns leiningen.new.com.flexiana.xiana
   (:require
     [leiningen.new.templates :refer [multi-segment sanitize-ns renderer name-to-path ->files]]
     [leiningen.core.main :as main]))
 
 (def render (renderer "xiana"))
 
-(defn xiana
+(defn com.flexiana.xiana
   "FIXME: write documentation"
   [name]
   (let [data {:name           name
@@ -28,10 +28,10 @@
                                [["src/backend/{{name-to-path}}/core.clj" (render "src/backend/app_name/core.clj" data)]
                                 ["src/backend/{{name-to-path}}/controllers/index.clj" (render "src/backend/app_name/controllers/index.clj" data)]
                                 ["src/backend/{{name-to-path}}/controllers/re_frame.clj" (render "src/backend/app_name/controllers/re_frame.clj" data)]
-                                ["src/backend/{{name-to-path}}/controller_behaviors/.gitkeep" (render "src/backend/app_name/controller_behaviors/.gitkeep" data)]
-                                ["src/backend/{{name-to-path}}/interceptors/.gitkeep" (render "src/backend/app_name/interceptors/.gitkeep" data)]
-                                ["src/backend/{{name-to-path}}/models/.gitkeep" (render "src/backend/app_name/models/.gitkeep" data)]
-                                ["src/backend/{{name-to-path}}/views/layouts/.gitkeep" (render "src/backend/app_name/views/layouts/.gitkeep" data)]
+                                ["src/backend/{{name-to-path}}/controller_behaviors/.gitkeep" (render "src/backend/app_name/controller_behaviors/gitkeep" data)]
+                                ["src/backend/{{name-to-path}}/interceptors/.gitkeep" (render "src/backend/app_name/interceptors/gitkeep" data)]
+                                ["src/backend/{{name-to-path}}/models/.gitkeep" (render "src/backend/app_name/models/gitkeep" data)]
+                                ["src/backend/{{name-to-path}}/views/layouts/.gitkeep" (render "src/backend/app_name/views/layouts/gitkeep" data)]
                                 ["src/backend/{{name-to-path}}/interceptors.clj" (render "src/backend/app_name/interceptors.clj" data)]
                                 ["src/backend/{{name-to-path}}/views/common.clj" (render "src/backend/app_name/views/common.clj" data)]
                                 ["src/frontend/{{name-to-path}}/config.cljs" (render "src/frontend/app_name/config.cljs" data)]
@@ -43,5 +43,6 @@
                                 ["test/{{name-to-path}}_test.clj" (render "test/app_name_test.clj" data)]
                                 ["test/{{name-to-path}}_fixture.clj" (render "test/app_name_fixture.clj" data)]
                                 ["shadow-cljs.edn" (render "shadow-cljs.edn" data)]
-                                [".gitignore" (render "gitignore" data)]
-                                [".hgignore" (render "hgignore" data)]])))))
+                                ["gitignore" (render "gitignore" data)]
+                                ["hgignore" (render "hgignore" data)]])))))
+
