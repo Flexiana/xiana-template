@@ -1,11 +1,11 @@
-(ns leiningen.new.com.flexiana.xiana
+(ns leiningen.new.xiana
   (:require
     [leiningen.new.templates :refer [multi-segment sanitize-ns renderer name-to-path ->files]]
     [leiningen.core.main :as main]))
 
 (def render (renderer "xiana"))
 
-(defn com.flexiana.xiana
+(defn xiana
   "FIXME: write documentation"
   [name]
   (let [data {:name           name
@@ -45,4 +45,3 @@
                                 ["shadow-cljs.edn" (render "shadow-cljs.edn" data)]
                                 ["gitignore" (render "gitignore" data)]
                                 ["hgignore" (render "hgignore" data)]])))))
-
