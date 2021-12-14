@@ -31,7 +31,7 @@
       closeable-map))
 
 (def app-cfg
-  {:routes #'routes
+  {:routes routes
    :router-interceptors     []
    :controller-interceptors [(interceptors/muuntaja)
                              interceptors/params
