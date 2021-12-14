@@ -14,8 +14,8 @@
     [xiana.commons :refer [rename-key]]))
 
 (def routes
-  [["/" {:action index/handle-index}]
-   ["/re-frame" {:action re-frame/handle-index}]
+  [["/" {:action #'index/handle-index}]
+   ["/re-frame" {:action #'re-frame/handle-index}]
    ["/assets/*" (ring/create-resource-handler {:path "/"})]])
 
 (defn ->system
@@ -31,7 +31,7 @@
       closeable-map))
 
 (def app-cfg
-  {:routes routes
+  {:routes #'routes
    :router-interceptors     []
    :controller-interceptors [(interceptors/muuntaja)
                              interceptors/params
