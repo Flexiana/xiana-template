@@ -1,7 +1,7 @@
 (ns user
   (:gen-class)
   (:require
-    [{{sanitized-name}}.core :refer [->system app-cfg]]
+    [{{sanitized-name}} .core :refer [->system app-cfg]]
     [clojure.tools.logging :refer [*tx-agent-levels*]]
     [clojure.tools.namespace.repl :refer [refresh-all]]
     [piotr-yuxuan.closeable-map :refer [closeable-map]]
@@ -16,9 +16,10 @@
 
 (defn- stop-dev-system
   []
-  (when (:webserver @dev-sys) (do (.close @dev-sys)
-                                  (refresh-all)))
-  (reset! dev-sys (closeable-map {})))
+  (when (:webserver @dev-sys)
+    (.close @dev-sys)
+    (refresh-all)
+    (reset! dev-sys (closeable-map {}))))
 
 (defn start-dev-system
   []

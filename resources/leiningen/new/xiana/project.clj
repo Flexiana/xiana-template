@@ -2,7 +2,7 @@
             :description "FIXME: write description"
             :min-lein-version "2.0.0"
             :dependencies [[org.clojure/clojure "1.10.3"]
-                           [com.flexiana/framework "0.3.2"]
+                           [com.flexiana/framework "0.3.4"]
                            [thheller/shadow-cljs "2.11.26"]
                            [migratus "1.3.5"]
                            [clj-http "3.12.1"]
@@ -31,6 +31,7 @@
                       "kondo"   ["run" "-m" "clj-kondo.main" "--lint" "src" "test"]
                       "lint"    ["do" "kondo," "eastwood," "kibit"]
                       "migrate" ["run" "-m" "framework.db.main"]
+                      "seed"    ["run" "-m" "framework.db.seed"]
                       "watch"   ["with-profile" "dev" "do"
                                  ["shadow" "watch" "app" "browser-test" "karma-test"]]
                       "release" ["with-profile" "prod" "do"

@@ -4,6 +4,7 @@
     [{{sanitized-name}}.controllers.re-frame :as re-frame]
     [framework.config.core :as config]
     [framework.db.core :as db]
+    [framework.db.seed :as seed]
     [framework.interceptor.core :as interceptors]
     [framework.rbac.core :as rbac]
     [framework.route.core :as routes]
@@ -24,9 +25,10 @@
       (rename-key :framework.app/auth :auth)
       routes/reset
       rbac/init
-      session/init-in-memory
+      session/init-backend
       db/connect
       db/migrate!
+      seed/seed!
       ws/start
       closeable-map))
 
