@@ -1,7 +1,7 @@
 (ns user
   (:gen-class)
   (:require
-    [{{sanitized-name}} .core :refer [->system app-cfg]]
+    [{{sanitized-name}}.core :refer [->system app-cfg]]
     [clojure.tools.logging :refer [*tx-agent-levels*]]
     [clojure.tools.namespace.repl :refer [refresh-all]]
     [piotr-yuxuan.closeable-map :refer [closeable-map]]
