@@ -7,11 +7,11 @@
  :framework.app/session-backend   {:storage            :database
                                    :session-table-name :sessions}
  :framework.db.storage/migration  {:store                :database
-                                   :seed-dir             "dev_seeds"
+                                   :seeds-dir             "dev_seeds"
                                    :migration-dir        "migrations"
                                    :init-in-transaction? false
                                    :migration-table-name "migrations"
-                                   :seed-table-name      "seeds"}
+                                   :seeds-table-name      "seeds"}
  :framework.app/web-server        {:port  3000
                                    :join? false}
  :framework.app/auth              {:hash-algorithm  :bcrypt ;; Available values: :bcrypt, :scrypt, and :pbkdf2
