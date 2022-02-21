@@ -22,7 +22,7 @@
 (defn ->system
   [app-cfg]
   (-> (config/config app-cfg)
-      (rename-key :framework.app/auth :auth)
+      (rename-key :xiana/auth :auth)
       routes/reset
       rbac/init
       session/init-backend
