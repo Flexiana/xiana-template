@@ -1,6 +1,6 @@
 # xiana
 
-A Leiningen template for flexiana/framework
+A Leiningen template for flexiana/framework.
 
 ## Usage
 
