@@ -6,11 +6,11 @@
                                    :user       "postgres"
                                    :password   "postgres"}
  :framework.db.storage/migration  {:store                :database
-                                   :seed-dir             "test_seeds"
+                                   :seeds-dir             "test_seeds"
                                    :migration-dir        "migrations"
                                    :init-in-transaction? false
                                    :migration-table-name "migrations"
-                                   :seed-table-name      "seeds"}
+                                   :seeds-table-name      "seeds"}
  :framework.app/web-server        {:port  3333
                                    :join? false}
  :framework.app/auth              {:hash-algorithm  :bcrypt ;; Available values: :bcrypt, :scrypt, and :pbkdf2
@@ -20,4 +20,3 @@
                                                      :parallelization 1}
                                    :pbkdf2-settings {:type       :sha1 ;; Available values: :sha1 and :sha256
                                                      :iterations 100000}}}
-
