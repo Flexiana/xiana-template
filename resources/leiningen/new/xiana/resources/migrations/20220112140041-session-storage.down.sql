@@ -1,4 +1,4 @@
-DROP TABLE sessions;
+DROP TABLE IF EXISTS sessions;
 
 --;;
 
