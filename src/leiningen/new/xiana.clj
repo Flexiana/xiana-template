@@ -18,6 +18,8 @@
                               "src/shared/config.clj"
                               "src/shared/schema.clj"
                               "resources/public/index.html"
+                              "resources/migrations/20220112140041-session-storage.down.sql"
+                              "resources/migrations/20220112140041-session-storage.up.sql"
                               "config/dev/config.edn"
                               "config/test/config.edn"
                               "project.clj"
