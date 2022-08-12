@@ -1,14 +1,10 @@
 (defproject {{sanitized-name}} "0.1.0-SNAPSHOT"
             :description "FIXME: write description"
             :min-lein-version "2.0.0"
-            :dependencies [[org.clojure/clojure "1.10.3"]
-                           [com.flexiana/framework "0.3.4"]
-                           [thheller/shadow-cljs "2.11.26"]
-                           [migratus "1.3.5"]
-                           [clj-http "3.12.1"]
+            :dependencies [[com.flexiana/framework "0.5.0-rc2"]
+                           [piotr-yuxuan/closeable-map "0.35.1"]
                            [org.clojure/tools.namespace "1.1.0"]
-                           [reagent "0.10.0"]
-                           [re-frame "1.1.2"]
+                           [thheller/shadow-cljs "2.11.26"]
                            [com.fzakaria/slf4j-timbre "0.3.21"]]
             :plugins [[lein-shadow "0.3.1"]]
             :main ^:skip-aot {{name}}.core
@@ -20,18 +16,15 @@
                        :local {:resource-paths ["config/local"]}
                        :prod  {:resource-paths ["config/prod"]}
                        :test  {:resource-paths ["config/test"]
-                               :dependencies   [[kerodon "0.9.1"]]}}
+                               :dependencies   [[clj-http "3.12.1"]
+                                                [kerodon "0.9.1"]]}}
             :shadow-cljs {:nrepl  {:port 8777}
                           :builds {:app {:target     :browser
                                          :output-dir "resources/public/assets/js/compiled"
                                          :asset-path "assets/js/compiled"
                                          :modules    {:app {:init-fn {{sanitized-name}}.core/init
                                                                      :preloads [devtools.preload]}}}}}
-            :aliases {"ci"      ["do" "clean," "cloverage," "lint," "uberjar"]
-                      "kondo"   ["run" "-m" "clj-kondo.main" "--lint" "src" "test"]
-                      "lint"    ["do" "kondo," "eastwood," "kibit"]
-                      "migrate" ["run" "-m" "framework.db.main"]
-                      "seed"    ["run" "-m" "framework.db.seed"]
+            :aliases {"migrate" ["run" "-m" "xiana.db.migrate"]
                       "watch"   ["with-profile" "dev" "do"
                                  ["shadow" "watch" "app" "browser-test" "karma-test"]]
                       "release" ["with-profile" "prod" "do"

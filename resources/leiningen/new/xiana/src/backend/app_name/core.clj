@@ -2,15 +2,13 @@
   (:require
     [{{sanitized-name}}.controllers.index :as index]
     [{{sanitized-name}}.controllers.re-frame :as re-frame]
-    [framework.config.core :as config]
-    [framework.db.core :as db]
-    [framework.db.seed :as seed]
-    [framework.interceptor.core :as interceptors]
-    [framework.rbac.core :as rbac]
-    [framework.route.core :as routes]
-    [framework.session.core :as session]
-    [framework.webserver.core :as ws]
-    [piotr-yuxuan.closeable-map :refer [closeable-map]]
+    [xiana.config :as config]
+    [xiana.db :as db]
+    [xiana.interceptor :as interceptors]
+    [xiana.rbac :as rbac]
+    [xiana.route :as routes]
+    [xiana.session :as session]
+    [xiana.webserver :as ws]
     [reitit.ring :as ring]
     [xiana.commons :refer [rename-key]]))
 
@@ -28,9 +26,7 @@
       session/init-backend
       db/connect
       db/migrate!
-      seed/seed!
-      ws/start
-      closeable-map))
+      ws/start))
 
 (def app-cfg
   {:routes routes

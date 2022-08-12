@@ -1,22 +1,31 @@
-{:framework.db.storage/postgresql {:image-name "postgres:14-alpine"
-                                   :port       5433
-                                   :dbname     "{{name-to-path}}"
-                                   :host       "localhost"
-                                   :dbtype     "postgresql"
-                                   :user       "postgres"
-                                   :password   "postgres"}
- :framework.db.storage/migration  {:store                :database
-                                   :seeds-dir             "test_seeds"
-                                   :migration-dir        "migrations"
-                                   :init-in-transaction? false
-                                   :migration-table-name "migrations"
-                                   :seeds-table-name      "seeds"}
- :framework.app/web-server        {:port  3333
-                                   :join? false}
- :framework.app/auth              {:hash-algorithm  :bcrypt ;; Available values: :bcrypt, :scrypt, and :pbkdf2
-                                   :bcrypt-settings {:work-factor 11}
-                                   :scrypt-settings {:cpu-cost        32768 ;; Must be a power of 2
-                                                     :memory-cost     8
-                                                     :parallelization 1}
-                                   :pbkdf2-settings {:type       :sha1 ;; Available values: :sha1 and :sha256
-                                                     :iterations 100000}}}
+{:xiana/postgresql      {:image-name "postgres:14-alpine"
+                         :port       5433
+                         :dbname     "{{name-to-path}}c"
+                         :host       "localhost"
+                         :dbtype     "postgresql"
+                         :user       "{{name-to-path}}"
+                         :password   "test"}
+ :xiana/migration       {:store                :database
+                         :migration-dir        "migrations"
+                         :migration-table-name "migrations"}
+ :xiana/session-ttl     {:duration    90
+                         :unit        :minutes
+                         :alert-times [600 300 120 90 60 30 15 10 5 0]}
+ :xiana/session-backend {:storage            :database
+                         :session-table-name :sessions}
+ :xiana/web-server      {:port   3333
+                         :host   "localhost"
+                         :join?  false
+                         :async? true}
+ :xiana/auth            {:hash-algorithm  :bcrypt           ;; Available values: :bcrypt, :scrypt, and :pbkdf2
+                         :bcrypt-settings {:work-factor 11}
+                         :scrypt-settings {:cpu-cost        32768 ;; Must be a power of 2
+                                           :memory-cost     8
+                                           :parallelization 1}
+                         :pbkdf2-settings {:type       :sha1 ;; Available values: :sha1 and :sha256
+                                           :iterations 100000}}
+ :logging/timbre-config {:min-level :debug}
+ :logging/rolling       {:enabled?  true
+                         :path      "log/{{name-to-path}}.log"
+                         :roll-freq :daily                  ; accepts :daily :weekly :monthly
+                         :min-level :debug}}
