@@ -7,6 +7,8 @@
          first
          (str/split #"\s")))
 
+(println first-line)
+
 (def project
    (second first-line))
 
