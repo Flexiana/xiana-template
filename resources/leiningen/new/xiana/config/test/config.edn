@@ -1,16 +1,14 @@
 {:xiana/postgresql      {:image-name "postgres:14-alpine"
                          :port       5433
-                         :dbname     "{{name-to-path}}c"
+                         :dbname     "{{name-to-path}}"
                          :host       "localhost"
                          :dbtype     "postgresql"
                          :user       "{{name-to-path}}"
                          :password   "test"}
  :xiana/migration       {:store                :database
-                         :migration-dir        "migrations"
+                         :migration-dir        ["migrations/common"
+                                                "migrations/test"]
                          :migration-table-name "migrations"}
- :xiana/session-ttl     {:duration    90
-                         :unit        :minutes
-                         :alert-times [600 300 120 90 60 30 15 10 5 0]}
  :xiana/session-backend {:storage            :database
                          :session-table-name :sessions}
  :xiana/web-server      {:port   3333

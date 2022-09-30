@@ -1,9 +1,11 @@
 (ns leiningen.new.xiana
   (:require
-    [leiningen.new.templates :refer [multi-segment sanitize-ns renderer name-to-path ->files]]
-    [leiningen.core.main :as main]))
+    [leiningen.core.main :as main]
+    [leiningen.new.templates :refer [multi-segment sanitize-ns renderer name-to-path ->files]]))
+
 
 (def render (renderer "xiana"))
+
 
 (defn xiana
   "FIXME: write documentation"
@@ -15,12 +17,15 @@
     (main/info "Generating fresh 'lein new' xiana project.")
     (apply ->files data (->> ["dev/user.clj"
                               "dev/state.clj"
-                              "src/shared/config.clj"
-                              "src/shared/schema.clj"
+                              "src/shared/config.cljc"
+                              "src/shared/schema.cljc"
                               "resources/public/index.html"
-                              "resources/migrations/20220112140041-session-storage.down.sql"
-                              "resources/migrations/20220112140041-session-storage.up.sql"
+                              "resources/migrations/common/20220112140041-session-storage.down.sql"
+                              "resources/migrations/common/20220112140041-session-storage.up.sql"
+                              "resources/migrations/dev/.gitkeep"
+                              "resources/migrations/test/.gitkeep"
                               "config/dev/config.edn"
+                              "config/prod/config.edn"
                               "config/test/config.edn"
                               "project.clj"
                               "docker-compose.yml"
@@ -34,7 +39,6 @@
                                 ["src/backend/{{name-to-path}}/interceptors/.gitkeep" (render "src/backend/app_name/interceptors/gitkeep" data)]
                                 ["src/backend/{{name-to-path}}/models/.gitkeep" (render "src/backend/app_name/models/gitkeep" data)]
                                 ["src/backend/{{name-to-path}}/views/layouts/.gitkeep" (render "src/backend/app_name/views/layouts/gitkeep" data)]
-                                ["src/backend/{{name-to-path}}/interceptors.clj" (render "src/backend/app_name/interceptors.clj" data)]
                                 ["src/backend/{{name-to-path}}/views/common.clj" (render "src/backend/app_name/views/common.clj" data)]
                                 ["src/frontend/{{name-to-path}}/config.cljs" (render "src/frontend/app_name/config.cljs" data)]
                                 ["src/frontend/{{name-to-path}}/core.cljs" (render "src/frontend/app_name/core.cljs" data)]

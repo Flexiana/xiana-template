@@ -5,11 +5,9 @@
                          :user     "postgres"
                          :password "postgres"}
  :xiana/migration       {:store                :database
-                         :migration-dir        "migrations"
+                         :migration-dir        ["migrations/common"
+                                                "migrations/dev"]
                          :migration-table-name "migrations"}
- :xiana/session-ttl     {:duration    90
-                         :unit        :minutes
-                         :alert-times [600 300 120 90 60 30 15 10 5 0]}
  :xiana/session-backend {:storage            :database
                          :session-table-name :sessions}
  :xiana/web-server      {:port   3000
