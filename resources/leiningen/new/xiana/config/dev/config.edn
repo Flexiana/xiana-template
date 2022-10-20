@@ -8,7 +8,8 @@
                          :migration-dir        ["migrations/common"
                                                 "migrations/dev"]
                          :migration-table-name "migrations"}
- :xiana/swagger         {:uri-path "swagger/swagger.json" :path :swagger.json}
+ :xiana/swagger         {:uri-path "swagger/swagger.json"
+                         :path :swagger.json}
  :xiana/swagger-ui      {:uri-path "swagger/swagger-ui"}
  :xiana/session-backend {:storage            :database
                          :session-table-name :sessions}
