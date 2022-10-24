@@ -20,8 +20,10 @@
     [xiana.commons :refer [rename-key]]))
 
 (def routes
-  [["/"               {:action #'index/handle-index}]
-   ["/re-frame"       {:action #'re-frame/handle-index}]
+  [["/"               {:action #'index/handle-index
+                       :swagger {:produces ["text/html"]}}]
+   ["/re-frame"       {:action #'re-frame/handle-index
+                       :swagger {:produces ["text/html"]}}]
    ["/assets/*"       (ring/create-resource-handler {:path "/"})]
 
    ^{:no-doc true}
