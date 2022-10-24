@@ -14,6 +14,9 @@
     [reitit.ring :as ring]
     [clojure.walk]
     [ring.util.response]
+    [reitit.coercion.malli]
+    [malli.util :as mu]
+    [reitit.swagger :as sswagger]
     [xiana.commons :refer [rename-key]]))
 
 (def routes
@@ -30,7 +33,22 @@
   [app-cfg]
   (-> (config/config app-cfg)
       (rename-key :framework.app/auth :auth)
-      xsw/->swagger-data
+      (xsw/->swagger-data
+       :routes routes
+       :render? true
+       :type :json
+       :route-opt-map {:data {:coercion (reitit.coercion.malli/create
+                                         {;; set of keys to include in error messages
+                                          :error-keys #{#_:type :coercion :in :schema :value :errors :humanized #_:transformed}
+                                          ;; schema identity function (default: close all map schemas)
+                                          :compile mu/closed-schema
+                                          ;; strip-extra-keys (effects only predefined transformers)
+                                          :strip-extra-keys true
+                                          ;; add/set default values
+                                          :default-values true
+                                          ;; malli options
+                                          :options nil})
+                              :middleware [sswagger/swagger-feature]}})
       routes/reset
       rbac/init
       session/init-backend
