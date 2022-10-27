@@ -8,7 +8,7 @@
                          :migration-dir        ["migrations/common"
                                                 "migrations/dev"]
                          :migration-table-name "migrations"}
- :xiana/swagger         {:uri-path "swagger/swagger.json"
+ :xiana/swagger         {:uri-path "/swagger/swagger.json"
                          :path :swagger.json
                          :data {:coercion (reitit.coercion.malli/create
                                            {:error-keys #{:coercion :in :schema :value :errors :humanized}
@@ -17,7 +17,7 @@
                                             :default-values true
                                             :options nil})
                                 :middleware [reitit.swagger/swagger-feature]}}
- :xiana/swagger-ui      {:uri-path "swagger/swagger-ui"}
+ :xiana/swagger-ui      {:uri-path "/swagger/swagger-ui"}
  :xiana/session-backend {:storage            :database
                          :session-table-name :sessions}
  :xiana/web-server      {:port   3000
