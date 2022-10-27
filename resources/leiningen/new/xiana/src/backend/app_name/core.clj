@@ -24,12 +24,7 @@
                        :swagger {:produces ["text/html"]}}]
    ["/re-frame"       {:action #'re-frame/handle-index
                        :swagger {:produces ["text/html"]}}]
-   ["/assets/*"       (ring/create-resource-handler {:path "/"})]
-
-   ^{:no-doc true}
-   ["/swagger-ui"     (swagger/create-swagger-ui-route-map)]
-   ^{:no-doc true}
-   ["/swagger.json"   (swagger/create-swagger-data-route-map)]])
+   ["/assets/*"       (ring/create-resource-handler {:path "/"})]])
 
 (defn ->system
   [app-cfg]
