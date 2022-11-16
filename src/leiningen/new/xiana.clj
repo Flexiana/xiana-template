@@ -20,6 +20,7 @@
                               "src/shared/config.cljc"
                               "src/shared/schema.cljc"
                               "resources/public/index.html"
+                              "resources/public/swaggerui.html"
                               "resources/migrations/common/20220112140041-session-storage.down.sql"
                               "resources/migrations/common/20220112140041-session-storage.up.sql"
                               "config/dev/config.edn"
@@ -33,6 +34,7 @@
                                [["src/backend/{{name-to-path}}/core.clj" (render "src/backend/app_name/core.clj" data)]
                                 ["src/backend/{{name-to-path}}/controllers/index.clj" (render "src/backend/app_name/controllers/index.clj" data)]
                                 ["src/backend/{{name-to-path}}/controllers/re_frame.clj" (render "src/backend/app_name/controllers/re_frame.clj" data)]
+                                ["src/backend/{{name-to-path}}/controllers/swagger.clj" (render "src/backend/app_name/controllers/swagger.clj" data)]
                                 ["src/backend/{{name-to-path}}/controller_behaviors/.gitkeep" (render "src/backend/app_name/controller_behaviors/gitkeep" data)]
                                 ["src/backend/{{name-to-path}}/interceptors/.gitkeep" (render "src/backend/app_name/interceptors/gitkeep" data)]
                                 ["src/backend/{{name-to-path}}/models/.gitkeep" (render "src/backend/app_name/models/gitkeep" data)]

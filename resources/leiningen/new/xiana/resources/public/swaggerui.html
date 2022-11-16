@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Swagger UI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.52.4/swagger-ui.min.css" integrity="sha512-lfbw/3iTOqI2s3gVb0fIwex5Y9WpcFM8Oq6XMpD8R5jMjOgzIgXjDNg7mNqbWS1I6qqC7sFaaMHXNsnVstkQYQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+     html {
+         box-sizing: border-box;
+         overflow: -moz-scrollbars-vertical;
+         overflow-y: scroll;
+     }
+
+     *,
+     *:before,
+     *:after {
+         box-sizing: inherit;
+     }
+
+     body {
+         margin: 0;
+         background: #fafafa;
+     }
+        </style>
+    <link
+      rel="icon"
+      type="image/png"
+      href="./favicon-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="./favicon-16x16.png"
+      sizes="16x16"
+    />
+  </head>
+
+  <body>
+    <div id="swagger-ui"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.52.4/swagger-ui-bundle.min.js" integrity="sha512-w+D7rGMfhW/r7/lGU7mu92gjvuo4ZQddFOm5iJ0EAQNS7mmhCb10I8GcgrGTr1zJvCYcxj4roHMo66sLNQOgqA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.52.4/swagger-ui-standalone-preset.min.js" integrity="sha512-OdiS0y42zD5WmBnJ6H8K3SCYjAjIJQrUOAraBx5PH1QSLtq+KNLy80uQKruXCJTGZKdQ7hhu/AD+WC+wuYUS+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+     window.onload = function () {
+         window.ui = SwaggerUIBundle({
+             url: "/swagger.json",
+             schemes: ["http"],
+             dom_id: '#swagger-ui',
+             deepLinking: true,
+             presets: [
+                 SwaggerUIBundle.presets.apis,
+                 SwaggerUIStandalonePreset
+             ],
+             plugins: [
+                 SwaggerUIBundle.plugins.DownloadUrl
+             ],
+             layout: "StandaloneLayout"
+         });
+     };
+    </script>
+  </body>
+</html>

@@ -2,25 +2,35 @@
   (:require
     [{{sanitized-name}}.controllers.index :as index]
     [{{sanitized-name}}.controllers.re-frame :as re-frame]
+    [{{sanitized-name}}.controllers.swagger :as swagger]
     [xiana.config :as config]
     [xiana.db :as db]
     [xiana.interceptor :as interceptors]
     [xiana.rbac :as rbac]
     [xiana.route :as routes]
+    [xiana.swagger :as xsw]
     [xiana.session :as session]
     [xiana.webserver :as ws]
     [reitit.ring :as ring]
+    [clojure.walk]
+    [ring.util.response]
+    [reitit.coercion.malli]
+    [malli.util :as mu]
+    [reitit.swagger :as sswagger]
     [xiana.commons :refer [rename-key]]))
 
 (def routes
-  [["/" {:action #'index/handle-index}]
-   ["/re-frame" {:action #'re-frame/handle-index}]
-   ["/assets/*" (ring/create-resource-handler {:path "/"})]])
+  [["/"               {:action #'index/handle-index
+                       :swagger {:produces ["text/html"]}}]
+   ["/re-frame"       {:action #'re-frame/handle-index
+                       :swagger {:produces ["text/html"]}}]
+   ["/assets/*"       (ring/create-resource-handler {:path "/"})]])
 
 (defn ->system
   [app-cfg]
   (-> (config/config app-cfg)
       (rename-key :framework.app/auth :auth)
+      xsw/->swagger-data
       routes/reset
       rbac/init
       session/init-backend
