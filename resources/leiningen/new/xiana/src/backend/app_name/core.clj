@@ -29,7 +29,7 @@
 (defn ->system
   [app-cfg]
   (-> (config/config app-cfg)
-      (rename-key :framework.app/auth :auth)
+      (rename-key :xiana/auth :auth)
       xsw/->swagger-data
       routes/reset
       rbac/init
