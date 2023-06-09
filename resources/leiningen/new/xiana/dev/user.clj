@@ -26,7 +26,7 @@
   (stop-dev-system)
   (shadow.server/start!)
   (shadow.api/watch :app)
-  (reset! dev-sys (->system dev-app-config)))
+  (reset! dev-sys (closeable-map (->system dev-app-config))))
 
 (comment
   (start-dev-system))
