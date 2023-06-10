@@ -11,6 +11,8 @@
 
 (disable-reload!)
 
+(defonce dev-sys (atom (closeable-map {})))
+
 (alter-var-root #'*tx-agent-levels* conj :debug :trace)
 
 (def dev-app-config
