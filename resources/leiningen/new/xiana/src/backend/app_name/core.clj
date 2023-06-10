@@ -27,9 +27,9 @@
       (rename-key :xiana/auth :auth)
       routes/reset
       rbac/init
-      session/init-backend
       db/connect
       db/migrate!
+      session/init-backend
       ws/start))
 
 (def app-cfg
