@@ -1,4 +1,4 @@
-{:xiana/postgresql      {:image-name "postgres:14-alpine"
+{:xiana/postgresql      {:image-name "postgres:15-alpine"
                          :port       5433
                          :dbname     "{{name-to-path}}"
                          :host       "localhost"
