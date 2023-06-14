@@ -5,6 +5,7 @@
     [xiana.config :as config]
     [xiana.db :as db]
     [xiana.interceptor :as interceptors]
+    [xiana.interceptor.error :as error]
     [xiana.rbac :as rbac]
     [xiana.route :as routes]
     [xiana.session :as session]
@@ -33,6 +34,7 @@
    :router-interceptors     []
    :controller-interceptors [(interceptors/muuntaja)
                              interceptors/params
+                             error/response
                              session/guest-session-interceptor
                              interceptors/view
                              interceptors/side-effect
