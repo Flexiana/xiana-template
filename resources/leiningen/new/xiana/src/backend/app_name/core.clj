@@ -2,7 +2,6 @@
   (:require
     [{{sanitized-name}}.controllers.index :as index]
     [{{sanitized-name}}.controllers.re-frame :as re-frame]
-    [{{sanitized-name}}.controllers.swagger :as swagger]
     [xiana.config :as config]
     [xiana.db :as db]
     [xiana.interceptor :as interceptors]
