@@ -1,7 +1,7 @@
 (defproject {{sanitized-name}} "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :min-lein-version "2.0.0"
-  :dependencies [[com.flexiana/framework "0.5.0-rc4"]
+  :dependencies [[com.flexiana/framework "0.5.0-rc3"]
                  [piotr-yuxuan/closeable-map "0.36.2"]
                  [org.clojure/tools.namespace "1.3.0"]
                  [thheller/shadow-cljs "2.20.2"]

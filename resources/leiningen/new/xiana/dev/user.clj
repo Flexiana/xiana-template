@@ -3,14 +3,11 @@
   (:require
     [{{sanitized-name}}.core :refer [->system app-cfg]]
     [clojure.tools.logging :refer [*tx-agent-levels*]]
-    [clojure.tools.namespace.repl :refer [refresh-all disable-reload!]]
+    [clojure.tools.namespace.repl :refer [refresh-all]]
     [piotr-yuxuan.closeable-map :refer [closeable-map]]
     [shadow.cljs.devtools.api :as shadow.api]
-    [shadow.cljs.devtools.server :as shadow.server]))
-
-(disable-reload!)
-
-(defonce dev-sys (atom (closeable-map {})))
+    [shadow.cljs.devtools.server :as shadow.server]
+    [state :refer [dev-sys]]))
 
 (alter-var-root #'*tx-agent-levels* conj :debug :trace)
 

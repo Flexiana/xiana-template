@@ -10,9 +10,6 @@
     [xiana.session :as session]
     [xiana.webserver :as ws]
     [reitit.ring :as ring]
-    [clojure.walk]
-    [ring.util.response]
-    [reitit.coercion.malli]
     [xiana.commons :refer [rename-key]]))
 
 (def routes
