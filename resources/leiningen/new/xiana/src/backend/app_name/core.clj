@@ -10,18 +10,21 @@
     [xiana.route :as routes]
     [xiana.session :as session]
     [xiana.webserver :as ws]
+    [xiana.swagger :as xsw]
     [reitit.ring :as ring]
     [xiana.commons :refer [rename-key]]))
 
 (def routes
-  [["/"               {:action #'index/handle-index}]
-   ["/re-frame"       {:action #'re-frame/handle-index}]
-   ["/assets/*"       (ring/create-resource-handler {:path "/"})]])
+  [["/"               {:get {:action #'index/handle-index}}]
+   ["/re-frame"       {:no-doc true
+                       :action #'re-frame/handle-index}]
+   ^:no-doc ["/assets/*"  (ring/create-resource-handler {:path "/"})]])
 
 (defn ->system
   [app-cfg]
   (-> (config/config app-cfg)
       (rename-key :xiana/auth :auth)
+      xsw/add-swagger-endpoints
       routes/reset
       rbac/init
       db/connect

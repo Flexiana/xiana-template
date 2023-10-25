@@ -1,4 +1,14 @@
-{:xiana/postgresql      {:port     5433
+{:xiana/swagger         {:uri-path "/swagger/swagger.json"
+                         :path     :swagger.json
+                         :data     {:coercion   (reitit.coercion.malli/create
+                                                  {:error-keys       #{:coercion :in :schema :value :errors :humanized}
+                                                   :compile          malli.util/closed-schema
+                                                   :strip-extra-keys true
+                                                   :default-values   true
+                                                   :options          nil})
+                                    :middleware [reitit.swagger/swagger-feature]}}
+ :xiana/swagger-ui      {:uri-path "/swagger/swagger-ui"}
+ :xiana/postgresql      {:port     5433
                          :dbname   "{{name-to-path}}"
                          :host     "localhost"
                          :dbtype   "postgresql"
