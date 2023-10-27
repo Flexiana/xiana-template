@@ -52,4 +52,4 @@
                                 ["resources/migrations/test/.gitkeep" (render "resources/migrations/test/gitkeep" data)]
                                 ["shadow-cljs.edn" (render "shadow-cljs.edn" data)]
                                 [".gitignore" (render ".gitignore" data)]
-                                [".hgignore" (render ".hgignore" data)]])))))
+                                ["hgignore" (render "hgignore" data)]])))))
