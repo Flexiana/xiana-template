@@ -63,7 +63,6 @@
     (if tag
       (do
         (import-gpg!)
-        (println (run-shell-cmd "gpg" "--list-secret-keys"))
         (println "Deploying a release version"))
       (do
         (println "Deploying a snapshot version")
